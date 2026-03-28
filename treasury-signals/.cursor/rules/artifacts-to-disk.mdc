@@ -1,0 +1,20 @@
+---
+alwaysApply: true
+---
+
+# Write Artifacts to Disk
+
+ALL outputs must be written to the project tree — never left only in conversation.
+
+| Artifact | Location |
+|:---|:---|
+| Backtest results | `results/backtest_summary.csv` |
+| Per-signal equity curves | `results/equity_{ID}.csv` |
+| Rolling Sharpe | `results/rolling_sharpe.csv` |
+| HTML report | `results/report.html` |
+| Charts | `results/charts/` |
+| Execution plans | `docs/plans/active/` |
+| Completed plans | `docs/plans/completed/` |
+| Experiment log | `results.tsv` (untracked by git) |
+
+The autoresearch loop uses `results.tsv` to track which experiments were kept/discarded.

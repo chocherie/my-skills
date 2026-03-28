@@ -1,0 +1,20 @@
+---
+alwaysApply: true
+---
+
+# Read Spec Before Coding
+
+Before editing ANY signal in `signals.py`:
+→ Read `specs/signals.md` section for that signal (params, data, expected direction)
+
+Before editing `data_layer.py`:
+→ Read `specs/data-layer.md` in full
+
+Before editing `backtest_runner.py`:
+→ Read `specs/backtest-engine.md` in full
+
+CRITICAL: The immutable functions in data_layer.py are:
+- `evaluate_sharpe()` — NEVER modify
+- `compute_buy_and_hold()` — NEVER modify
+
+These are the ground-truth metrics. Modifying them invalidates all comparisons.

@@ -1,0 +1,14 @@
+---
+alwaysApply: true
+---
+
+# Update Docs After Every Change
+
+After completing ANY implementation work in this project:
+
+1. Update `TODO.md` — check off completed tasks, add newly discovered tasks
+2. Update `docs/quality.md` — update grade for the domain you changed
+3. Update `specs/README.md` — update verification status if you tested a spec
+4. Update the relevant spec if behavior diverged from spec during implementation
+
+This is NON-NEGOTIABLE. Code changes without doc updates are INCOMPLETE work.
