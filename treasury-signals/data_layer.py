@@ -61,7 +61,7 @@ def _save(df: pd.DataFrame, name: str):
     df.to_parquet(_cache_path(name))
 
 
-def _load(name: str) -> pd.DataFrame | None:
+def _load(name: str):
     p = _cache_path(name)
     if p.exists():
         return pd.read_parquet(p)
