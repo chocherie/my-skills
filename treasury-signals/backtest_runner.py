@@ -206,10 +206,28 @@ def run_all_backtests():
     # Load data
     print("\nLoading data...")
     df = load_data()
-    returns = df["ief_return"].dropna()
-    print(f"Returns: {len(returns)} days, {returns.index[0].date()} to {returns.index[-1].date()}")
 
-    # Buy-and-hold benchmark
+    # Combined return series: IEF (2002+) spliced with duration-approx (pre-2002)
+    # IEF is real total return including coupons; approx = -duration*Δyield + carry - funding
+    ief = df["ief_return"]
+    approx = df.get("ust_return_approx", pd.Series(dtype=float))
+    # Use IEF where it exists, fall back to approx for the pre-IEF history
+    returns = ief.combine_first(approx).dropna()
+    ief_start = ief.first_valid_index()
+    approx_start = approx.first_valid_index() if not approx.empty else None
+    print(f"Combined return series: {len(returns)} days, "
+          f"{returns.index[0].date()} → {returns.index[-1].date()}")
+    print(f"  IEF (real):   {ief_start.date() if ief_start else 'N/A'} → {returns.index[-1].date()}")
+    print(f"  Approx:       {approx_start.date() if approx_start else 'N/A'} → "
+          f"{(ief_start - pd.Timedelta(days=1)).date() if ief_start else 'N/A'}")
+
+    # Expected walk-forward steps
+    n_total = len(returns)
+    expected_steps = max(0, (n_total - IS_WINDOW - OOS_WINDOW) // STEP_SIZE)
+    print(f"  Expected WF steps: ~{expected_steps} "
+          f"(IS={IS_WINDOW}d, OOS={OOS_WINDOW}d, step={STEP_SIZE}d)")
+
+    # Buy-and-hold benchmark on combined return series
     bah = compute_buy_and_hold(returns)
     print(f"\nBuy-and-Hold: Sharpe={bah['sharpe']}, Return={bah['total_return']}%, "
           f"MaxDD={bah['max_drawdown']}%")

@@ -119,7 +119,19 @@ def make_signal_chart(signal_id: str, signal_name: str) -> str:
 
     fig, axes = plt.subplots(2, 1, figsize=(10, 6), sharex=True,
                              gridspec_kw={"height_ratios": [3, 1]})
-    fig.suptitle(f"{signal_id} — {signal_name}", fontsize=11, fontweight="bold")
+    # Get WF step count from summary if available
+    n_steps = ""
+    summary_path = RESULTS_DIR / "backtest_summary.csv"
+    if summary_path.exists():
+        try:
+            s = pd.read_csv(summary_path)
+            s = s.rename(columns={"ID": "signal_id", "WF_Steps": "wf_steps"})
+            row_s = s[s["signal_id"] == signal_id]
+            if not row_s.empty and pd.notna(row_s.iloc[0].get("wf_steps")):
+                n_steps = f"  |  {int(row_s.iloc[0]['wf_steps'])} OOS windows (rolling WF)"
+        except Exception:
+            pass
+    fig.suptitle(f"{signal_id} — {signal_name}{n_steps}", fontsize=11, fontweight="bold")
 
     # ── top: equity curve ──────────────────────────────────────────────────
     ax1 = axes[0]
@@ -364,7 +376,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </head>
 <body>
 <h1>10Y US Treasury — Signal Backtest Report</h1>
-<p class="note">Walk-forward: IS=504d / OOS=63d / step=63d &nbsp;|&nbsp; Primary instrument: IEF ETF total return</p>
+<p class="note">Rolling walk-forward: IS=504d / OOS=63d / step=63d (~130 windows over 1990–2026) &nbsp;|&nbsp;
+Return series: IEF ETF (2002+) spliced with duration-approx = −8.5×Δyield + carry − funding (pre-2002)</p>
 
 <div class="toc">
   <a href="#master-table">Master Table</a>

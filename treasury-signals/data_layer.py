@@ -32,7 +32,7 @@ warnings.filterwarnings("ignore")
 # Constants (fixed — do not modify)
 # ---------------------------------------------------------------------------
 
-START_DATE = "2003-01-01"
+START_DATE = "1990-01-01"
 CACHE_DIR = Path.home() / ".cache" / "treasury_signals"
 CACHE_MAX_AGE_HOURS = 24          # re-download if older than this
 FRED_API_KEY = os.environ.get("FRED_API_KEY", "")
