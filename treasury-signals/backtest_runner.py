@@ -138,6 +138,9 @@ def walk_forward_backtest(returns: pd.Series, signal: pd.Series):
     oos_sharpe = oos_avg.get("oos_sharpe_ratio", 0)
     overfit_ratio = round(1 - (oos_sharpe / is_sharpe), 3) if is_sharpe != 0 else 0.0
 
+    # Count OOS windows where strategy Sharpe > 0 (beats flat)
+    n_oos_positive = sum(1 for r in oos_results if r.get("oos_sharpe_ratio", 0) > 0)
+
     # Stitched OOS equity curve
     if oos_returns:
         all_oos = pd.concat(oos_returns).sort_index()
@@ -153,6 +156,7 @@ def walk_forward_backtest(returns: pd.Series, signal: pd.Series):
         "oos_avg": oos_avg,
         "overfit_ratio": overfit_ratio,
         "n_wf_steps": step,
+        "n_oos_positive": n_oos_positive,
         "equity_strat": equity_strat,
         "equity_bah": equity_bah,
     }
@@ -239,10 +243,15 @@ def run_all_backtests():
         }
 
         if wf:
-            row["IS_Sharpe"] = wf["is_avg"].get("is_sharpe_ratio", 0)
-            row["OOS_Sharpe"] = wf["oos_avg"].get("oos_sharpe_ratio", 0)
-            row["Overfit_Ratio"] = wf["overfit_ratio"]
-            row["WF_Steps"] = wf["n_wf_steps"]
+            row["IS_Sharpe"]      = wf["is_avg"].get("is_sharpe_ratio", 0)
+            row["OOS_Sharpe"]     = wf["oos_avg"].get("oos_sharpe_ratio", 0)
+            row["OOS_AnnReturn"]  = wf["oos_avg"].get("oos_annual_return", 0)
+            row["OOS_MaxDD"]      = wf["oos_avg"].get("oos_max_drawdown", 0)
+            row["OOS_WinRate"]    = wf["oos_avg"].get("oos_win_rate", 0)
+            row["OOS_HitRate"]    = wf["oos_avg"].get("oos_hit_rate", 0)
+            row["Overfit_Ratio"]  = wf["overfit_ratio"]
+            row["WF_Steps"]       = wf["n_wf_steps"]
+            row["N_OOS_Positive"] = wf["n_oos_positive"]
 
             # Save equity curves
             if not wf["equity_strat"].empty:
@@ -255,7 +264,9 @@ def run_all_backtests():
                 eq_df.to_csv(RESULTS_DIR / f"equity_{sig_id}.csv", index=False)
                 equity_curves[sig_id] = eq_df
         else:
-            row["IS_Sharpe"] = row["OOS_Sharpe"] = row["Overfit_Ratio"] = row["WF_Steps"] = None
+            row["IS_Sharpe"] = row["OOS_Sharpe"] = row["OOS_AnnReturn"] = None
+            row["OOS_MaxDD"] = row["OOS_WinRate"] = row["OOS_HitRate"] = None
+            row["Overfit_Ratio"] = row["WF_Steps"] = row["N_OOS_Positive"] = None
 
         # Save rolling Sharpe
         rolling_sharpes[sig_id] = rs
@@ -286,7 +297,8 @@ def run_all_backtests():
     print("BACKTEST SUMMARY — ALL SIGNALS VS BUY-AND-HOLD")
     print("=" * 70)
     display_cols = ["ID", "Name", "Category", "sharpe_ratio", "max_drawdown",
-                    "hit_rate", "OOS_Sharpe", "Overfit_Ratio", "BAH_Sharpe", "Excess_Sharpe"]
+                    "hit_rate", "OOS_Sharpe", "OOS_AnnReturn", "OOS_MaxDD",
+                    "N_OOS_Positive", "Overfit_Ratio", "BAH_Sharpe", "Excess_Sharpe"]
     display_cols = [c for c in display_cols if c in summary_df.columns]
     print(summary_df[display_cols].to_string(index=False))
 

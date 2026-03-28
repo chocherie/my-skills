@@ -149,13 +149,14 @@ def compute_S03(df: pd.DataFrame) -> pd.Series:
 
 
 def compute_S04(df: pd.DataFrame) -> pd.Series:
-    """S04 — SMA Crossover. IEF price above 200d SMA → long."""
+    """S04 — SMA Crossover. IEF price above 200d SMA → long, below → flat.
+    Long/flat only: bonds have positive carry so naked shorts are costly."""
     if "ief_close" not in df.columns:
         return pd.Series(0, index=df.index, name="S04_SMA_Cross")
     price = df["ief_close"]
-    sma_fast = price.rolling(P_S04_FAST).mean()
     sma_slow = price.rolling(P_S04_SLOW).mean()
-    sig = pd.Series(np.where(price > sma_slow, 1, -1), index=df.index, dtype=float)
+    # Long when above SMA (uptrend), flat when below (avoid drawdown)
+    sig = pd.Series(np.where(price > sma_slow, 1, 0), index=df.index, dtype=float)
     sig[:P_S04_SLOW] = np.nan
     sig.name = "S04_SMA_Cross"
     return sig
@@ -218,16 +219,15 @@ def compute_S08(df: pd.DataFrame) -> pd.Series:
 
 
 def compute_S09(df: pd.DataFrame) -> pd.Series:
-    """S09 — TIPS Real Yield. Deeply negative → bonds supported → flat/long."""
+    """S09 — TIPS Real Yield. Deeply negative real yields → long bonds.
+    Long/flat: real yields below -0.5% historically supportive; avoid shorts."""
     if "dfii10" not in df.columns:
         return pd.Series(0, index=df.index, name="S09_Real_Yield")
     ry = df["dfii10"].ffill()
-    ry_mom = ry.diff(63)
-    # Negative and falling → long (flight to quality, financial repression)
-    # Positive and rising → short (real yield headwind)
-    score = pd.Series(index=df.index, dtype=float)
-    score = -zscore(ry + ry_mom * 0.5, 252)
-    sig = signal_from_score(score, bull=0.3, bear=-0.3)
+    # Long bonds when real yield is negative and falling (financial repression)
+    # Flat otherwise — do not short based on real yield alone
+    score = -zscore(ry, 252)   # inverted: low/negative real yield → positive score
+    sig = pd.Series(np.where(score > 0.5, 1, 0), index=df.index, dtype=float)
     sig[:252 + 63] = np.nan
     sig.name = "S09_Real_Yield"
     return sig
@@ -252,12 +252,14 @@ def compute_S10(df: pd.DataFrame) -> pd.Series:
 # ---------------------------------------------------------------------------
 
 def compute_S11(df: pd.DataFrame) -> pd.Series:
-    """S11 — VIX Flight-to-Safety. High VIX → risk-off → long bonds."""
+    """S11 — VIX Flight-to-Safety. High VIX → risk-off → long bonds, flat otherwise.
+    Long/flat only: we want to capture flight-to-quality without shorting at low-vol."""
     if "vix" not in df.columns:
         return pd.Series(0, index=df.index, name="S11_VIX_Safety")
     vix = df["vix"].ffill()
     score = zscore(vix, P_S11_Z_WINDOW)
-    sig = signal_from_score(score, bull=P_S11_MILD_THRESH, bear=-0.5)
+    # Long only when VIX is elevated (>1σ), flat otherwise
+    sig = pd.Series(np.where(score > 1.0, 1, 0), index=df.index, dtype=float)
     sig[:P_S11_Z_WINDOW] = np.nan
     sig.name = "S11_VIX_Safety"
     return sig
@@ -406,10 +408,10 @@ def compute_S19(df: pd.DataFrame) -> pd.Series:
         state_means, _ = kf.filter(spread.values)
         filtered = pd.Series(state_means.flatten(), index=spread.index)
 
-        residual = spread - filtered
-        score = zscore(residual, 252)
-        score = score.reindex(df.index)
-        sig = signal_from_score(score, bull=0.5, bear=-0.5)
+        residual = (spread - filtered).reindex(df.index)
+        # Kalman filter tracks closely → residuals small → use tighter z-score window
+        score = zscore(residual.ffill(), 126)
+        sig = signal_from_score(score, bull=0.3, bear=-0.3)
         sig[:252 + 126] = np.nan
         sig.name = "S19_Kalman_Spread"
         return sig

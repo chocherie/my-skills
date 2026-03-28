@@ -463,23 +463,23 @@ def main():
         "Category": "category",
         "IS_Sharpe": "is_sharpe",
         "OOS_Sharpe": "oos_sharpe",
+        "OOS_AnnReturn": "oos_annual_return",
+        "OOS_MaxDD": "oos_max_drawdown",
+        "OOS_WinRate": "oos_win_rate",
+        "OOS_HitRate": "oos_hit_rate",
         "BAH_Sharpe": "bah_sharpe",
         "Overfit_Ratio": "overfit_ratio",
+        "N_OOS_Positive": "n_oos_positive",
         "sharpe_ratio": "full_sharpe",
         "annual_return": "full_annual_return",
         "max_drawdown": "full_max_drawdown",
         "win_rate": "full_win_rate",
     }
     summary = summary.rename(columns=col_map)
-    # Add n_oos_positive placeholder if not present
-    if "n_oos_positive" not in summary.columns:
-        summary["n_oos_positive"] = float("nan")
-    if "oos_annual_return" not in summary.columns:
-        summary["oos_annual_return"] = float("nan")
-    if "oos_max_drawdown" not in summary.columns:
-        summary["oos_max_drawdown"] = float("nan")
-    if "oos_win_rate" not in summary.columns:
-        summary["oos_win_rate"] = float("nan")
+    # Fill any still-missing columns with nan
+    for col in ["n_oos_positive", "oos_annual_return", "oos_max_drawdown", "oos_win_rate"]:
+        if col not in summary.columns:
+            summary[col] = float("nan")
 
     # Filter to single signal if requested
     if args.signal:
