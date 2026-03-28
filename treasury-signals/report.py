@@ -115,7 +115,7 @@ def make_signal_chart(signal_id: str, signal_name: str) -> str:
     if not eq_path.exists():
         return ""
 
-    eq = pd.read_csv(eq_path, index_col=0, parse_dates=True)
+    eq = pd.read_csv(eq_path, parse_dates=["date"]).set_index("date")
 
     fig, axes = plt.subplots(2, 1, figsize=(10, 6), sharex=True,
                              gridspec_kw={"height_ratios": [3, 1]})
@@ -456,6 +456,31 @@ def main():
     summary = pd.read_csv(summary_path)
     print(f"[report] Loaded summary: {len(summary)} signals")
 
+    # Normalise column names from backtest_runner output → report internal names
+    col_map = {
+        "ID": "signal_id",
+        "Name": "name",
+        "Category": "category",
+        "IS_Sharpe": "is_sharpe",
+        "OOS_Sharpe": "oos_sharpe",
+        "BAH_Sharpe": "bah_sharpe",
+        "Overfit_Ratio": "overfit_ratio",
+        "sharpe_ratio": "full_sharpe",
+        "annual_return": "full_annual_return",
+        "max_drawdown": "full_max_drawdown",
+        "win_rate": "full_win_rate",
+    }
+    summary = summary.rename(columns=col_map)
+    # Add n_oos_positive placeholder if not present
+    if "n_oos_positive" not in summary.columns:
+        summary["n_oos_positive"] = float("nan")
+    if "oos_annual_return" not in summary.columns:
+        summary["oos_annual_return"] = float("nan")
+    if "oos_max_drawdown" not in summary.columns:
+        summary["oos_max_drawdown"] = float("nan")
+    if "oos_win_rate" not in summary.columns:
+        summary["oos_win_rate"] = float("nan")
+
     # Filter to single signal if requested
     if args.signal:
         summary = summary[summary["signal_id"] == args.signal]
@@ -473,7 +498,9 @@ def main():
         sid = row["signal_id"]
         eq_path = RESULTS_DIR / f"equity_{sid}.csv"
         if eq_path.exists():
-            equity_dict[sid] = pd.read_csv(eq_path, index_col=0, parse_dates=True)
+            eq = pd.read_csv(eq_path, parse_dates=["date"])
+            eq = eq.set_index("date")
+            equity_dict[sid] = eq
 
     # ── Per-signal charts ──────────────────────────────────────────────────
     chart_b64 = {}
