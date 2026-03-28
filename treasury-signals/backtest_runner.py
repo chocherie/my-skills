@@ -147,13 +147,36 @@ def walk_forward_backtest(returns: pd.Series, signal: pd.Series):
         all_bah = pd.concat(oos_bah_returns).sort_index()
         equity_strat = (1 + all_oos).cumprod()
         equity_bah = (1 + all_bah).cumprod()
+
+        # Compute metrics on the FULL stitched OOS period (not window averages)
+        # This avoids the noise of averaging annualised 63-day windows
+        n_oos_years = len(all_oos) / 252
+        oos_total_ret = float(equity_strat.iloc[-1] - 1)
+        oos_ann_ret = float((1 + oos_total_ret) ** (1 / max(n_oos_years, 0.01)) - 1)
+        oos_sharpe_stitched = float(
+            all_oos.mean() / all_oos.std() * math.sqrt(252)
+        ) if all_oos.std() > 0 else 0.0
+        peak = equity_strat.cummax()
+        oos_max_dd = float(((equity_strat - peak) / peak).min())
+        active = all_oos[all_oos != 0]
+        oos_win_rate = float((active > 0).mean() * 100) if len(active) > 0 else 0.0
+
+        oos_stitched = {
+            "oos_ann_return_stitched":  round(oos_ann_ret * 100, 2),
+            "oos_sharpe_stitched":      round(oos_sharpe_stitched, 3),
+            "oos_max_dd_stitched":      round(oos_max_dd * 100, 2),
+            "oos_win_rate_stitched":    round(oos_win_rate, 2),
+            "oos_total_ret_stitched":   round(oos_total_ret * 100, 2),
+        }
     else:
         equity_strat = pd.Series(dtype=float)
         equity_bah = pd.Series(dtype=float)
+        oos_stitched = {}
 
     return {
         "is_avg": is_avg,
         "oos_avg": oos_avg,
+        "oos_stitched": oos_stitched,
         "overfit_ratio": overfit_ratio,
         "n_wf_steps": step,
         "n_oos_positive": n_oos_positive,
@@ -244,11 +267,12 @@ def run_all_backtests():
 
         if wf:
             row["IS_Sharpe"]      = wf["is_avg"].get("is_sharpe_ratio", 0)
-            row["OOS_Sharpe"]     = wf["oos_avg"].get("oos_sharpe_ratio", 0)
-            row["OOS_AnnReturn"]  = wf["oos_avg"].get("oos_annual_return", 0)
-            row["OOS_MaxDD"]      = wf["oos_avg"].get("oos_max_drawdown", 0)
-            row["OOS_WinRate"]    = wf["oos_avg"].get("oos_win_rate", 0)
-            row["OOS_HitRate"]    = wf["oos_avg"].get("oos_hit_rate", 0)
+            row["OOS_Sharpe"]     = wf["oos_stitched"].get("oos_sharpe_stitched",
+                                     wf["oos_avg"].get("oos_sharpe_ratio", 0))
+            row["OOS_AnnReturn"]  = wf["oos_stitched"].get("oos_ann_return_stitched", None)
+            row["OOS_TotalRet"]   = wf["oos_stitched"].get("oos_total_ret_stitched", None)
+            row["OOS_MaxDD"]      = wf["oos_stitched"].get("oos_max_dd_stitched", None)
+            row["OOS_WinRate"]    = wf["oos_stitched"].get("oos_win_rate_stitched", None)
             row["Overfit_Ratio"]  = wf["overfit_ratio"]
             row["WF_Steps"]       = wf["n_wf_steps"]
             row["N_OOS_Positive"] = wf["n_oos_positive"]
@@ -265,7 +289,7 @@ def run_all_backtests():
                 equity_curves[sig_id] = eq_df
         else:
             row["IS_Sharpe"] = row["OOS_Sharpe"] = row["OOS_AnnReturn"] = None
-            row["OOS_MaxDD"] = row["OOS_WinRate"] = row["OOS_HitRate"] = None
+            row["OOS_TotalRet"] = row["OOS_MaxDD"] = row["OOS_WinRate"] = None
             row["Overfit_Ratio"] = row["WF_Steps"] = row["N_OOS_Positive"] = None
 
         # Save rolling Sharpe

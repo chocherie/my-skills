@@ -281,6 +281,18 @@ def build_html_report(
         cat = str(row.get("category", ""))
         cat_label = CATEGORY_NAMES.get(cat, cat)
 
+        def _pct(val, dec=1):
+            """Format a value already stored as % (e.g. 3.5 → '3.5%')."""
+            if val is None:
+                return "—"
+            try:
+                v = float(val)
+                if math.isnan(v):
+                    return "—"
+                return f"{v:.{dec}f}%"
+            except (TypeError, ValueError):
+                return "—"
+
         table_rows.append({
             "sid": sid,
             "name": row.get("name", ""),
@@ -289,9 +301,10 @@ def build_html_report(
             "oos_sharpe": is_sharpe,
             "bah_sharpe": bah_sharpe,
             "overfit": _fmt(row.get("overfit_ratio"), ".2f"),
-            "ann_ret": _fmt(row.get("oos_annual_return"), ".2%").replace("nan", "—"),
-            "max_dd": _fmt(row.get("oos_max_drawdown"), ".2%").replace("nan", "—"),
-            "win_rate": _fmt(row.get("oos_win_rate"), ".1f"),
+            "ann_ret": _pct(row.get("oos_annual_return")),
+            "total_ret": _pct(row.get("oos_total_ret")),
+            "max_dd": _pct(row.get("oos_max_drawdown")),
+            "win_rate": _pct(row.get("oos_win_rate")),
             "n_oos_pos": str(int(row["n_oos_positive"])) if not math.isnan(float(row.get("n_oos_positive", float("nan")))) else "—",
             "dsr": _fmt(row.get("dsr"), ".3f"),
             "dsr_pass": dsr_pass_str,
@@ -367,9 +380,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <tr>
       <th>ID</th><th>Name</th><th>Category</th>
       <th>IS Sharpe</th><th>OOS Sharpe</th><th>B&amp;H Sharpe</th>
-      <th>Overfit Ratio</th><th>Ann. Return</th><th>Max DD</th>
-      <th>Win Rate %</th><th>OOS Wins</th>
-      <th>DSR</th><th>DSR</th>
+      <th>Overfit Ratio</th><th>OOS Ann. Ret</th><th>OOS Total Ret</th>
+      <th>OOS Max DD</th><th>Win Rate</th><th>OOS Wins</th>
+      <th>DSR</th><th>DSR Pass</th>
     </tr>
   </thead>
   <tbody>
@@ -383,6 +396,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <td>{{ r.bah_sharpe | safe }}</td>
       <td>{{ r.overfit }}</td>
       <td>{{ r.ann_ret }}</td>
+      <td>{{ r.total_ret }}</td>
       <td>{{ r.max_dd }}</td>
       <td>{{ r.win_rate }}</td>
       <td>{{ r.n_oos_pos }}</td>
@@ -464,9 +478,9 @@ def main():
         "IS_Sharpe": "is_sharpe",
         "OOS_Sharpe": "oos_sharpe",
         "OOS_AnnReturn": "oos_annual_return",
+        "OOS_TotalRet": "oos_total_ret",
         "OOS_MaxDD": "oos_max_drawdown",
         "OOS_WinRate": "oos_win_rate",
-        "OOS_HitRate": "oos_hit_rate",
         "BAH_Sharpe": "bah_sharpe",
         "Overfit_Ratio": "overfit_ratio",
         "N_OOS_Positive": "n_oos_positive",
