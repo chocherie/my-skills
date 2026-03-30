@@ -107,73 +107,74 @@ def compute_rsi(series: pd.Series, period: int = 14) -> pd.Series:
 # CATEGORY A: Trend / Momentum
 # ---------------------------------------------------------------------------
 
-def compute_S01(df: pd.DataFrame) -> pd.Series:
+def compute_S01(df: pd.DataFrame, lookback: int = None) -> pd.Series:
     """S01 — 3-Month Momentum. Sign of IEF trailing 63d excess return."""
+    _lb = lookback if lookback is not None else P_S01_LOOKBACK
     if "ief_return" not in df.columns:
         return pd.Series(0, index=df.index, name="S01_3M_Momentum")
-    cum_ret = (1 + df["ief_return"].fillna(0)).rolling(P_S01_LOOKBACK).apply(
+    cum_ret = (1 + df["ief_return"].fillna(0)).rolling(_lb).apply(
         lambda x: x.prod() - 1, raw=True
     )
     sig = cum_ret.apply(lambda x: 1 if x > 0 else (-1 if x < 0 else 0))
-    sig[:P_S01_LOOKBACK] = np.nan
+    sig[:_lb] = np.nan
     sig.name = "S01_3M_Momentum"
     return sig
 
 
-def compute_S02(df: pd.DataFrame) -> pd.Series:
+def compute_S02(df: pd.DataFrame, lookback: int = None) -> pd.Series:
     """S02 — 6-Month Momentum. Sign of IEF trailing 126d return."""
+    _lb = lookback if lookback is not None else P_S02_LOOKBACK
     if "ief_return" not in df.columns:
         return pd.Series(0, index=df.index, name="S02_6M_Momentum")
-    cum_ret = (1 + df["ief_return"].fillna(0)).rolling(P_S02_LOOKBACK).apply(
+    cum_ret = (1 + df["ief_return"].fillna(0)).rolling(_lb).apply(
         lambda x: x.prod() - 1, raw=True
     )
     sig = cum_ret.apply(lambda x: 1 if x > 0 else (-1 if x < 0 else 0))
-    sig[:P_S02_LOOKBACK] = np.nan
+    sig[:_lb] = np.nan
     sig.name = "S02_6M_Momentum"
     return sig
 
 
-def compute_S03(df: pd.DataFrame) -> pd.Series:
+def compute_S03(df: pd.DataFrame, lookback: int = None) -> pd.Series:
     """S03 — 12-1 Month Momentum (skip last month)."""
+    _lb = lookback if lookback is not None else P_S03_LOOKBACK
     if "ief_return" not in df.columns:
         return pd.Series(0, index=df.index, name="S03_12_1_Momentum")
     ret = df["ief_return"].fillna(0)
-    cum_12 = (1 + ret).rolling(P_S03_LOOKBACK).apply(lambda x: x.prod() - 1, raw=True)
+    cum_12 = (1 + ret).rolling(_lb).apply(lambda x: x.prod() - 1, raw=True)
     cum_skip = (1 + ret).rolling(P_S03_SKIP).apply(lambda x: x.prod() - 1, raw=True)
-    # 12-1 = 12m return minus last 1m return
     mom = cum_12 - cum_skip
     sig = mom.apply(lambda x: 1 if x > 0 else (-1 if x < 0 else 0))
-    sig[:P_S03_LOOKBACK] = np.nan
+    sig[:_lb] = np.nan
     sig.name = "S03_12_1_Momentum"
     return sig
 
 
-def compute_S04(df: pd.DataFrame) -> pd.Series:
-    """S04 — SMA Crossover. IEF price above 200d SMA → long, below → flat.
-    Long/flat only: bonds have positive carry so naked shorts are costly."""
+def compute_S04(df: pd.DataFrame, slow: int = None) -> pd.Series:
+    """S04 — SMA Crossover. IEF price above SMA → long, below → flat."""
+    _slow = slow if slow is not None else P_S04_SLOW
     if "ief_close" not in df.columns:
         return pd.Series(0, index=df.index, name="S04_SMA_Cross")
     price = df["ief_close"]
-    sma_slow = price.rolling(P_S04_SLOW).mean()
-    # Long when above SMA (uptrend), flat when below (avoid drawdown)
+    sma_slow = price.rolling(_slow).mean()
     sig = pd.Series(np.where(price > sma_slow, 1, 0), index=df.index, dtype=float)
-    sig[:P_S04_SLOW] = np.nan
+    sig[:_slow] = np.nan
     sig.name = "S04_SMA_Cross"
     return sig
 
 
-def compute_S05(df: pd.DataFrame) -> pd.Series:
-    """S05 — RSI-14 on DGS10 yield. Low yield RSI = overbought yield = buy bonds."""
+def compute_S05(df: pd.DataFrame, period: int = None) -> pd.Series:
+    """S05 — RSI on DGS10 yield. High RSI on yield = overbought yield = buy bonds."""
+    _period = period if period is not None else P_S05_PERIOD
     if "dgs10" not in df.columns:
         return pd.Series(0, index=df.index, name="S05_RSI14_Yield")
-    rsi = compute_rsi(df["dgs10"].ffill(), P_S05_PERIOD)
-    # High RSI on yield = yield overbought = bond price oversold = buy bonds
+    rsi = compute_rsi(df["dgs10"].ffill(), _period)
     sig = pd.Series(
         np.where(rsi > P_S05_OVERBOUGHT, 1,
                  np.where(rsi < P_S05_OVERSOLD, -1, 0)),
         index=df.index, dtype=float
     )
-    sig[:P_S05_PERIOD * 3] = np.nan
+    sig[:_period * 3] = np.nan
     sig.name = "S05_RSI14_Yield"
     return sig
 
@@ -182,67 +183,68 @@ def compute_S05(df: pd.DataFrame) -> pd.Series:
 # CATEGORY B: Macro / Fundamental
 # ---------------------------------------------------------------------------
 
-def compute_S06(df: pd.DataFrame) -> pd.Series:
+def compute_S06(df: pd.DataFrame, z_window: int = None) -> pd.Series:
     """S06 — Carry (Yield Curve Slope). T10Y2Y z-score."""
+    _z = z_window if z_window is not None else P_S06_Z_WINDOW
     if "t10y2y" not in df.columns:
         return pd.Series(0, index=df.index, name="S06_Carry_Slope")
-    score = zscore(df["t10y2y"].ffill(), P_S06_Z_WINDOW)
+    score = zscore(df["t10y2y"].ffill(), _z)
     sig = signal_from_score(score, bull=0.3, bear=-0.3)
-    sig[:P_S06_Z_WINDOW] = np.nan
+    sig[:_z] = np.nan
     sig.name = "S06_Carry_Slope"
     return sig
 
 
-def compute_S07(df: pd.DataFrame) -> pd.Series:
+def compute_S07(df: pd.DataFrame, mom_window: int = None) -> pd.Series:
     """S07 — Breakeven Inflation Momentum. Rising → short bonds."""
+    _mw = mom_window if mom_window is not None else P_S07_MOM_WINDOW
     if "t10yie" not in df.columns:
         return pd.Series(0, index=df.index, name="S07_Breakeven_Mom")
     be = df["t10yie"].ffill()
-    mom = be.diff(P_S07_MOM_WINDOW)
-    score = -zscore(mom, P_S07_Z_WINDOW)  # inverted: rising inflation → short
+    mom = be.diff(_mw)
+    score = -zscore(mom, P_S07_Z_WINDOW)
     sig = signal_from_score(score, bull=0.3, bear=-0.3)
-    sig[:P_S07_Z_WINDOW + P_S07_MOM_WINDOW] = np.nan
+    sig[:P_S07_Z_WINDOW + _mw] = np.nan
     sig.name = "S07_Breakeven_Mom"
     return sig
 
 
-def compute_S08(df: pd.DataFrame) -> pd.Series:
+def compute_S08(df: pd.DataFrame, z_window: int = None) -> pd.Series:
     """S08 — ACM Term Premium Deviation. Below median → cheap bonds → long."""
+    _z = z_window if z_window is not None else P_S08_Z_WINDOW
     if "acm_tp" not in df.columns:
         return pd.Series(0, index=df.index, name="S08_ACM_TermPrem")
     tp = df["acm_tp"].ffill()
-    score = -zscore(tp, P_S08_Z_WINDOW)  # inverted: low TP = expensive bonds → short
+    score = -zscore(tp, _z)
     sig = signal_from_score(score, bull=0.3, bear=-0.3)
-    sig[:P_S08_Z_WINDOW] = np.nan
+    sig[:_z] = np.nan
     sig.name = "S08_ACM_TermPrem"
     return sig
 
 
-def compute_S09(df: pd.DataFrame) -> pd.Series:
-    """S09 — TIPS Real Yield. Deeply negative real yields → long bonds.
-    Long/flat: real yields below -0.5% historically supportive; avoid shorts."""
+def compute_S09(df: pd.DataFrame, z_window: int = None) -> pd.Series:
+    """S09 — TIPS Real Yield. Deeply negative real yields → long bonds (long/flat)."""
+    _z = z_window if z_window is not None else 252
     if "dfii10" not in df.columns:
         return pd.Series(0, index=df.index, name="S09_Real_Yield")
     ry = df["dfii10"].ffill()
-    # Long bonds when real yield is negative and falling (financial repression)
-    # Flat otherwise — do not short based on real yield alone
-    score = -zscore(ry, 252)   # inverted: low/negative real yield → positive score
+    score = -zscore(ry, _z)
     sig = pd.Series(np.where(score > 0.5, 1, 0), index=df.index, dtype=float)
-    sig[:252 + 63] = np.nan
+    sig[:_z + 63] = np.nan
     sig.name = "S09_Real_Yield"
     return sig
 
 
-def compute_S10(df: pd.DataFrame) -> pd.Series:
+def compute_S10(df: pd.DataFrame, z_window: int = None) -> pd.Series:
     """S10 — CPI Momentum Proxy. Rising CPI → short bonds."""
+    _z = z_window if z_window is not None else P_S10_Z_WINDOW
     if "cpiaucsl" not in df.columns:
         return pd.Series(0, index=df.index, name="S10_CPI_Mom")
     cpi = df["cpiaucsl"].ffill()
-    # 3-month annualized CPI change
     cpi_mom = (cpi / cpi.shift(63)) ** 4 - 1
-    score = -zscore(cpi_mom, P_S10_Z_WINDOW)  # rising CPI → short
+    score = -zscore(cpi_mom, _z)
     sig = signal_from_score(score, bull=0.3, bear=-0.3)
-    sig[:P_S10_Z_WINDOW + 63] = np.nan
+    sig[:_z + 63] = np.nan
     sig.name = "S10_CPI_Mom"
     return sig
 
@@ -251,54 +253,58 @@ def compute_S10(df: pd.DataFrame) -> pd.Series:
 # CATEGORY C: Cross-Asset
 # ---------------------------------------------------------------------------
 
-def compute_S11(df: pd.DataFrame) -> pd.Series:
+def compute_S11(df: pd.DataFrame, z_window: int = None) -> pd.Series:
     """S11 — VIX Flight-to-Safety. High VIX → risk-off → long bonds, flat otherwise.
     Long/flat only: we want to capture flight-to-quality without shorting at low-vol."""
+    _z = z_window if z_window is not None else P_S11_Z_WINDOW
     if "vix" not in df.columns:
         return pd.Series(0, index=df.index, name="S11_VIX_Safety")
     vix = df["vix"].ffill()
-    score = zscore(vix, P_S11_Z_WINDOW)
+    score = zscore(vix, _z)
     # Long only when VIX is elevated (>1σ), flat otherwise
     sig = pd.Series(np.where(score > 1.0, 1, 0), index=df.index, dtype=float)
-    sig[:P_S11_Z_WINDOW] = np.nan
+    sig[:_z] = np.nan
     sig.name = "S11_VIX_Safety"
     return sig
 
 
-def compute_S12(df: pd.DataFrame) -> pd.Series:
+def compute_S12(df: pd.DataFrame, z_window: int = None) -> pd.Series:
     """S12 — HY Credit Spread. Widening → flight to safety → long bonds."""
+    _z = z_window if z_window is not None else P_S12_Z_WINDOW
     if "hy_spread" not in df.columns:
         return pd.Series(0, index=df.index, name="S12_HY_Spread")
     spread = df["hy_spread"].ffill()
-    score = zscore(spread.diff(10), P_S12_Z_WINDOW)  # spread widening = bullish bonds
+    score = zscore(spread.diff(10), _z)  # spread widening = bullish bonds
     sig = signal_from_score(score, bull=0.5, bear=-0.5)
-    sig[:P_S12_Z_WINDOW + 10] = np.nan
+    sig[:_z + 10] = np.nan
     sig.name = "S12_HY_Spread"
     return sig
 
 
-def compute_S13(df: pd.DataFrame) -> pd.Series:
+def compute_S13(df: pd.DataFrame, mom_window: int = None) -> pd.Series:
     """S13 — DXY Momentum. USD strength → mild bullish for bonds."""
+    _mw = mom_window if mom_window is not None else P_S13_MOM_WINDOW
     if "dxy" not in df.columns:
         return pd.Series(0, index=df.index, name="S13_DXY_Mom")
     dxy = df["dxy"].ffill()
-    mom = dxy.pct_change(P_S13_MOM_WINDOW)
+    mom = dxy.pct_change(_mw)
     score = zscore(mom, P_S13_Z_WINDOW)
     sig = signal_from_score(score, bull=0.5, bear=-0.5)
-    sig[:P_S13_Z_WINDOW + P_S13_MOM_WINDOW] = np.nan
+    sig[:P_S13_Z_WINDOW + _mw] = np.nan
     sig.name = "S13_DXY_Mom"
     return sig
 
 
-def compute_S14(df: pd.DataFrame) -> pd.Series:
+def compute_S14(df: pd.DataFrame, mom_window: int = None) -> pd.Series:
     """S14 — Oil Momentum. Rising oil → inflation → short bonds."""
+    _mw = mom_window if mom_window is not None else P_S14_MOM_WINDOW
     if "oil" not in df.columns:
         return pd.Series(0, index=df.index, name="S14_Oil_Mom")
     oil = df["oil"].ffill()
-    mom = oil.pct_change(P_S14_MOM_WINDOW)
+    mom = oil.pct_change(_mw)
     score = -zscore(mom, P_S14_Z_WINDOW)  # inverted: rising oil → short
     sig = signal_from_score(score, bull=0.5, bear=-0.5)
-    sig[:P_S14_Z_WINDOW + P_S14_MOM_WINDOW] = np.nan
+    sig[:P_S14_Z_WINDOW + _mw] = np.nan
     sig.name = "S14_Oil_Mom"
     return sig
 
@@ -307,13 +313,14 @@ def compute_S14(df: pd.DataFrame) -> pd.Series:
 # CATEGORY D: Positioning / Sentiment
 # ---------------------------------------------------------------------------
 
-def compute_S15(df: pd.DataFrame) -> pd.Series:
+def compute_S15(df: pd.DataFrame, window: int = None) -> pd.Series:
     """S15 — COT Leveraged Fund Percentile. Crowded short → contrarian long."""
+    _w = window if window is not None else P_S15_WINDOW
     if "cot_lev_net" not in df.columns:
         return pd.Series(0, index=df.index, name="S15_COT_Lev")
     cot = df["cot_lev_net"].ffill()
     # Rolling percentile rank over trailing window
-    rank = cot.rolling(P_S15_WINDOW, min_periods=P_S15_WINDOW // 2).apply(
+    rank = cot.rolling(_w, min_periods=_w // 2).apply(
         lambda x: (x[-1] > x[:-1]).sum() / max(len(x) - 1, 1), raw=True
     )
     sig = pd.Series(
@@ -321,35 +328,37 @@ def compute_S15(df: pd.DataFrame) -> pd.Series:
                  np.where(rank > P_S15_LONG_THRESH, -1, 0)),  # crowded long → contrarian short
         index=df.index, dtype=float
     )
-    sig[:P_S15_WINDOW] = np.nan
+    sig[:_w] = np.nan
     sig.name = "S15_COT_Lev"
     return sig
 
 
-def compute_S16(df: pd.DataFrame) -> pd.Series:
+def compute_S16(df: pd.DataFrame, z_window: int = None) -> pd.Series:
     """S16 — Primary Dealer Net Positioning. Accumulation → bullish."""
+    _z = z_window if z_window is not None else P_S16_Z_WINDOW
     if "pd_net_6_11y" not in df.columns:
         return pd.Series(0, index=df.index, name="S16_PrimDealer")
     pd_pos = df["pd_net_6_11y"].ffill()
     # Week-over-week change, z-scored
     wow_change = pd_pos.diff(5)
-    score = zscore(wow_change, P_S16_Z_WINDOW)
+    score = zscore(wow_change, _z)
     sig = signal_from_score(score, bull=0.5, bear=-0.5)
-    sig[:P_S16_Z_WINDOW + 5] = np.nan
+    sig[:_z + 5] = np.nan
     sig.name = "S16_PrimDealer"
     return sig
 
 
-def compute_S17(df: pd.DataFrame) -> pd.Series:
+def compute_S17(df: pd.DataFrame, roll_window: int = None) -> pd.Series:
     """S17 — Fed RRP Usage. Large decline → liquidity tightening → bearish filter."""
+    _rw = roll_window if roll_window is not None else P_S17_ROLL_WINDOW
     if "rrp" not in df.columns:
         return pd.Series(0, index=df.index, name="S17_RRP_Filter")
     rrp = df["rrp"].ffill().fillna(0)
     # 4-week rolling change, z-scored
-    change = rrp.diff(P_S17_ROLL_WINDOW)
+    change = rrp.diff(_rw)
     score = zscore(change, 252)
     sig = signal_from_score(score, bull=0.5, bear=-0.5)
-    sig[:252 + P_S17_ROLL_WINDOW] = np.nan
+    sig[:252 + _rw] = np.nan
     sig.name = "S17_RRP_Filter"
     return sig
 
@@ -358,8 +367,9 @@ def compute_S17(df: pd.DataFrame) -> pd.Series:
 # CATEGORY E: Statistical
 # ---------------------------------------------------------------------------
 
-def compute_S18(df: pd.DataFrame) -> pd.Series:
+def compute_S18(df: pd.DataFrame, z_window: int = None) -> pd.Series:
     """S18 — PCA Slope Factor. PC2 of yield curve changes → steep curve → long."""
+    _z = z_window if z_window is not None else P_S18_Z_WINDOW
     yield_cols = ["dgs2", "dgs3", "dgs5", "dgs7", "dgs10", "dgs30"]
     available = [c for c in yield_cols if c in df.columns]
     if len(available) < 4:
@@ -368,10 +378,10 @@ def compute_S18(df: pd.DataFrame) -> pd.Series:
     yields = df[available].ffill()
     changes = yields.diff()
 
-    # Rolling PCA: fit on trailing 252 days, extract PC2 (slope factor)
+    # Rolling PCA: fit on trailing window, extract PC2 (slope factor)
     pca_scores = pd.Series(index=df.index, dtype=float, name="S18_PCA_Slope")
-    for i in range(P_S18_Z_WINDOW, len(df)):
-        window = changes.iloc[i - P_S18_Z_WINDOW:i].dropna()
+    for i in range(_z, len(df)):
+        window = changes.iloc[i - _z:i].dropna()
         if len(window) < 100:
             continue
         try:
@@ -382,15 +392,16 @@ def compute_S18(df: pd.DataFrame) -> pd.Series:
         except Exception:
             continue
 
-    score = zscore(pca_scores, P_S18_Z_WINDOW)
+    score = zscore(pca_scores, _z)
     sig = signal_from_score(score, bull=0.3, bear=-0.3)
-    sig[:P_S18_Z_WINDOW * 2] = np.nan
+    sig[:_z * 2] = np.nan
     sig.name = "S18_PCA_Slope"
     return sig
 
 
-def compute_S19(df: pd.DataFrame) -> pd.Series:
+def compute_S19(df: pd.DataFrame, obs_noise: float = None) -> pd.Series:
     """S19 — Kalman Dynamic Carry Spread. Mean-reversion of spread vs Kalman trend."""
+    _on = obs_noise if obs_noise is not None else P_S19_OBS_NOISE
     if "t10y2y" not in df.columns:
         return pd.Series(0, index=df.index, name="S19_Kalman_Spread")
     try:
@@ -402,7 +413,7 @@ def compute_S19(df: pd.DataFrame) -> pd.Series:
             observation_matrices=[1],
             initial_state_mean=spread.iloc[0],
             initial_state_covariance=1,
-            observation_covariance=P_S19_OBS_NOISE,
+            observation_covariance=_on,
             transition_covariance=P_S19_TRANS_NOISE,
         )
         state_means, _ = kf.filter(spread.values)
@@ -573,23 +584,25 @@ def compute_S22(df: pd.DataFrame) -> pd.Series:
 # CATEGORY F: Global Macro / Alt Data
 # ---------------------------------------------------------------------------
 
-def compute_S23(df: pd.DataFrame) -> pd.Series:
+def compute_S23(df: pd.DataFrame, roll_window: int = None) -> pd.Series:
     """S23 — Foreign Custody Holdings. Declining → foreign CB selling → bearish."""
+    _rw = roll_window if roll_window is not None else P_S23_ROLL_WINDOW
     if "farbast" not in df.columns:
         return pd.Series(0, index=df.index, name="S23_ForeignCustody")
     custody = df["farbast"].ffill()
     # 4-week rolling change, z-scored
-    change = custody.diff(P_S23_ROLL_WINDOW)
+    change = custody.diff(_rw)
     score = zscore(change, P_S23_Z_WINDOW)
     # Positive change = accumulation = bullish; declining = bearish
     sig = signal_from_score(score, bull=0.5, bear=-0.5)
-    sig[:P_S23_Z_WINDOW + P_S23_ROLL_WINDOW] = np.nan
+    sig[:P_S23_Z_WINDOW + _rw] = np.nan
     sig.name = "S23_ForeignCustody"
     return sig
 
 
-def compute_S24(df: pd.DataFrame) -> pd.Series:
+def compute_S24(df: pd.DataFrame, z_window: int = None) -> pd.Series:
     """S24 — Global Bond Factor Residual. US yield elevated vs global → buy."""
+    _z = z_window if z_window is not None else P_S24_Z_WINDOW
     cols = ["dgs10", "de10y", "jp10y"]
     available = [c for c in cols if c in df.columns]
     if len(available) < 2:
@@ -600,8 +613,8 @@ def compute_S24(df: pd.DataFrame) -> pd.Series:
 
     scores = pd.Series(index=df.index, dtype=float)
 
-    for i in range(P_S24_Z_WINDOW, len(df)):
-        window = changes.iloc[i - P_S24_Z_WINDOW:i].dropna()
+    for i in range(_z, len(df)):
+        window = changes.iloc[i - _z:i].dropna()
         if len(window) < 100 or window.shape[1] < 2:
             continue
         try:
@@ -617,22 +630,24 @@ def compute_S24(df: pd.DataFrame) -> pd.Series:
         except Exception:
             continue
 
-    score = zscore(scores, P_S24_Z_WINDOW)
+    score = zscore(scores, _z)
     # Positive residual = US yield elevated vs global = mean reversion = buy
     sig = signal_from_score(score, bull=0.5, bear=-0.5)
-    sig[:P_S24_Z_WINDOW * 2] = np.nan
+    sig[:_z * 2] = np.nan
     sig.name = "S24_GlobalFactor"
     return sig
 
 
-def compute_S25(df: pd.DataFrame) -> pd.Series:
+def compute_S25(df: pd.DataFrame, hawk_thresh: float = None) -> pd.Series:
     """S25 — FOMC Minutes Sentiment. Hawkish → short; dovish → long bonds."""
+    _ht = hawk_thresh if hawk_thresh is not None else P_S25_HAWK_THRESH
+    _dt = _ht - 0.20  # dove threshold stays 0.20 below hawk threshold
     if "fomc_hawk_score" not in df.columns:
         return pd.Series(0, index=df.index, name="S25_FOMC_Sentiment")
     hawk = df["fomc_hawk_score"].ffill()
     sig = pd.Series(
-        np.where(hawk > P_S25_HAWK_THRESH, -1,
-                 np.where(hawk < P_S25_DOVE_THRESH, 1, 0)),
+        np.where(hawk > _ht, -1,
+                 np.where(hawk < _dt, 1, 0)),
         index=df.index, dtype=float
     )
     # Need at least 2 FOMC cycles before trusting
@@ -675,6 +690,40 @@ ALL_SIGNALS = [
     ("S24", "GlobalFactor",      "F", compute_S24),
     ("S25", "FOMC_Sentiment",    "F", compute_S25),
 ]
+
+
+# ---------------------------------------------------------------------------
+# IS optimisation registries
+# ---------------------------------------------------------------------------
+
+# Signals excluded from per-window grid search (too slow: HMM, NSS, VECM)
+SKIP_IS_OPTIMIZATION = frozenset({"S20", "S21", "S22"})
+
+# For each optimizable signal: {kwarg_name: [candidate_values]}
+SIGNAL_PARAM_GRIDS = {
+    "S01": {"lookback":     [21,  42,  63,  126]},
+    "S02": {"lookback":     [63, 126, 189,  252]},
+    "S03": {"lookback":    [126, 189, 252,  315]},
+    "S04": {"slow":        [100, 150, 200,  252]},
+    "S05": {"period":      [  7,  10,  14,   21]},
+    "S06": {"z_window":   [126, 189, 252,  315]},
+    "S07": {"mom_window":  [ 21,  42,  63,  126]},
+    "S08": {"z_window":   [126, 189, 252,  315]},
+    "S09": {"z_window":   [126, 189, 252,  315]},
+    "S10": {"z_window":   [126, 189, 252,  315]},
+    "S11": {"z_window":   [126, 189, 252,  315]},
+    "S12": {"z_window":   [126, 189, 252,  315]},
+    "S13": {"mom_window":  [  5,  10,  21,   42]},
+    "S14": {"mom_window":  [  5,  10,  21,   42]},
+    "S15": {"window":     [252, 378, 504,  630]},   # NOTE: 630 > IS_WINDOW=504, will be skipped
+    "S16": {"z_window":   [126, 189, 252,  315]},
+    "S17": {"roll_window": [ 10,  15,  20,   40]},
+    "S18": {"z_window":   [126, 189, 252]},         # 3 values (each IS window is slow)
+    "S19": {"obs_noise":   [0.1, 0.5, 1.0,  2.0]},
+    "S23": {"roll_window": [ 10,  15,  20,   40]},
+    "S24": {"z_window":   [126, 189, 252,  315]},
+    "S25": {"hawk_thresh": [0.50, 0.55, 0.60, 0.65]},
+}
 
 
 def compute_all_signals(df: pd.DataFrame) -> pd.DataFrame:
