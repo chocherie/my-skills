@@ -28,6 +28,7 @@ from signals import ALL_SIGNALS, compute_all_signals, SIGNAL_PARAM_GRIDS, SKIP_I
 # Config
 # ---------------------------------------------------------------------------
 
+# Global fallback windows (used for non-optimised signals: S20/S21/S22)
 IS_WINDOW  = 504      # ~2 years in-sample
 OOS_WINDOW = 63       # ~3 months out-of-sample
 STEP_SIZE  = 63       # roll forward
@@ -37,6 +38,32 @@ RESULTS_DIR.mkdir(exist_ok=True)
 
 # Set to False to restore one-pass mode (no per-window parameter search)
 ENABLE_IS_OPTIMIZATION = True
+
+# Per-category walk-forward windows: (IS_window, OOS_window, step_size)
+#
+# Rationale:
+#   Category A (momentum) and C (cross-asset) react to regimes in days–weeks.
+#     → Short IS (6 months), monthly OOS/step for fast adaptation.
+#   Category B (macro), D (positioning), F (global/NLP) need more history.
+#     → Medium IS (1 year), bi-monthly steps.
+#   Category E (statistical: PCA, Kalman) have long warmup requirements.
+#     → Long IS (2 years), bi-monthly steps.
+#
+# OOS EMA parameter memory means the system carries forward knowledge of
+# which parameter worked well, so shorter IS windows are less penalised.
+CATEGORY_WINDOWS = {
+    "A": (126, 21, 21),   # Momentum     — IS=6mo, step/OOS=1mo   (~450 windows)
+    "B": (252, 42, 42),   # Macro        — IS=1yr, step/OOS=2mo   (~135 windows)
+    "C": (126, 21, 21),   # Cross-asset  — IS=6mo, step/OOS=1mo
+    "D": (252, 42, 42),   # Positioning  — IS=1yr, step/OOS=2mo
+    "E": (504, 42, 42),   # Statistical  — IS=2yr, step/OOS=2mo   (warmup-safe)
+    "F": (252, 42, 42),   # Global/NLP   — IS=1yr, step/OOS=2mo
+}
+
+# OOS EMA parameter memory hyperparameters
+OOS_EMA_DECAY  = 0.7   # weight on past EMA (recent windows count more)
+OOS_EMA_WEIGHT = 0.3   # how much historical OOS record biases next IS grid search
+                        # adjusted_sharpe = is_sharpe + OOS_EMA_WEIGHT * ema_oos_score
 
 
 # ---------------------------------------------------------------------------
@@ -141,14 +168,14 @@ def _aggregate_wf_results(is_results, oos_results, oos_returns, oos_bah_returns,
         oos_stitched = {}
 
     return {
-        "is_avg":        is_avg,
-        "oos_avg":       oos_avg,
-        "oos_stitched":  oos_stitched,
-        "overfit_ratio": overfit_ratio,
-        "n_wf_steps":    step,
+        "is_avg":         is_avg,
+        "oos_avg":        oos_avg,
+        "oos_stitched":   oos_stitched,
+        "overfit_ratio":  overfit_ratio,
+        "n_wf_steps":     step,
         "n_oos_positive": n_oos_positive,
-        "equity_strat":  equity_strat,
-        "equity_bah":    equity_bah,
+        "equity_strat":   equity_strat,
+        "equity_bah":     equity_bah,
     }
 
 
@@ -156,10 +183,14 @@ def _aggregate_wf_results(is_results, oos_results, oos_returns, oos_bah_returns,
 # Walk-forward (one-pass: pre-computed signal)
 # ---------------------------------------------------------------------------
 
-def walk_forward_backtest(returns: pd.Series, signal: pd.Series):
+def walk_forward_backtest(returns, signal, is_window=None, oos_window=None, step_size=None):
     """Walk-forward IS/OOS backtest with a pre-computed signal."""
+    _is  = is_window  or IS_WINDOW
+    _oos = oos_window or OOS_WINDOW
+    _stp = step_size  or STEP_SIZE
+
     aligned = pd.concat([returns, signal], axis=1).dropna()
-    if len(aligned) < IS_WINDOW + OOS_WINDOW:
+    if len(aligned) < _is + _oos:
         return None
 
     ret = aligned.iloc[:, 0]
@@ -171,9 +202,9 @@ def walk_forward_backtest(returns: pd.Series, signal: pd.Series):
     step  = 0
     start = 0
 
-    while start + IS_WINDOW + OOS_WINDOW <= n:
-        is_end  = start + IS_WINDOW
-        oos_end = min(is_end + OOS_WINDOW, n)
+    while start + _is + _oos <= n:
+        is_end  = start + _is
+        oos_end = min(is_end + _oos, n)
 
         is_m  = compute_metrics(ret.iloc[start:is_end],  sig.iloc[start:is_end],  "is_")
         oos_m = compute_metrics(ret.iloc[is_end:oos_end], sig.iloc[is_end:oos_end], "oos_")
@@ -186,7 +217,7 @@ def walk_forward_backtest(returns: pd.Series, signal: pd.Series):
         oos_bah_returns.append(ret.iloc[is_end:oos_end].dropna())
 
         step  += 1
-        start += STEP_SIZE
+        start += _stp
 
     if step < MIN_WF_STEPS:
         return None
@@ -195,37 +226,57 @@ def walk_forward_backtest(returns: pd.Series, signal: pd.Series):
 
 
 # ---------------------------------------------------------------------------
-# Walk-forward (optimised: per-IS-window parameter grid search)
+# Walk-forward (optimised: per-IS-window parameter grid search + OOS memory)
 # ---------------------------------------------------------------------------
 
 def walk_forward_backtest_optimized(
-    returns: pd.Series,
-    df: pd.DataFrame,
-    sig_id: str,
+    returns,
+    df,
+    sig_id,
     compute_fn,
-    param_grid: dict,
+    param_grid,
+    is_window=None,
+    oos_window=None,
+    step_size=None,
 ):
     """
-    Walk-forward with per-IS-window parameter optimisation.
+    Walk-forward with per-IS-window parameter optimisation and OOS memory.
 
-    For each IS window, grid-search over the candidate parameter values,
-    pick the one with highest IS Sharpe, then apply it to the OOS window.
-    No look-ahead: OOS signal is computed from df[is_start : oos_end].
+    For each IS window:
+      1. Grid-search over candidate parameter values using adjusted IS Sharpe:
+            adjusted = is_sharpe + OOS_EMA_WEIGHT × ema_oos_score(param)
+         where ema_oos_score is a running EMA of each param's historical OOS
+         performance from all completed past windows (no look-ahead).
+      2. Pick the parameter with highest adjusted score.
+      3. Apply it to the OOS window (signal computed from df[is_start:oos_end]).
+      4. After OOS evaluation, update ema_oos_score for the selected param.
+
+    Parameter memory means a param that consistently delivers positive OOS
+    results gains a persistent preference in future IS searches, while params
+    that win IS-only get penalised over time.
     """
+    _is  = is_window  or IS_WINDOW
+    _oos = oos_window or OOS_WINDOW
+    _stp = step_size  or STEP_SIZE
+
     n = len(returns)
-    if n < IS_WINDOW + OOS_WINDOW:
+    if n < _is + _oos:
         return None
 
     param_name, param_values_all = next(iter(param_grid.items()))
-    # Drop integer window params that exceed the IS window (can't compute meaningful signal)
+    # Drop integer params that exceed the IS window (can't produce a meaningful signal)
     param_values = [
         v for v in param_values_all
-        if not isinstance(v, int) or v <= IS_WINDOW
+        if not isinstance(v, int) or v <= _is
     ]
     if not param_values:
         return None
 
-    default_param = param_values[len(param_values) // 2]   # middle value as fallback
+    default_param = param_values[len(param_values) // 2]  # middle value as fallback
+
+    # OOS EMA memory: tracks historical OOS performance per parameter value.
+    # Initialised to 0 (neutral prior). Updated after each OOS window.
+    param_oos_ema = {pval: 0.0 for pval in param_values}
 
     is_results, oos_results = [], []
     oos_returns, oos_bah_returns = [], []
@@ -233,9 +284,9 @@ def walk_forward_backtest_optimized(
     step  = 0
     start = 0
 
-    while start + IS_WINDOW + OOS_WINDOW <= n:
-        is_end  = start + IS_WINDOW
-        oos_end = min(is_end + OOS_WINDOW, n)
+    while start + _is + _oos <= n:
+        is_end  = start + _is
+        oos_end = min(is_end + _oos, n)
 
         is_idx  = returns.index[start:is_end]
         oos_idx = returns.index[is_end:oos_end]
@@ -243,8 +294,9 @@ def walk_forward_backtest_optimized(
         ret_is  = returns.iloc[start:is_end]
         ret_oos = returns.iloc[is_end:oos_end]
 
-        # ── Grid search on IS data only ───────────────────────────────────
-        best_sharpe = -np.inf
+        # ── Grid search on IS data only (OOS EMA-adjusted) ───────────────
+        best_adjusted = -np.inf
+        best_is_sharpe = -np.inf
         best_param  = default_param
         df_is = df.loc[is_idx[0]:is_idx[-1]]
 
@@ -256,18 +308,25 @@ def walk_forward_backtest_optimized(
                     continue
                 m = compute_metrics(ret_is, sig_cand_aligned, "is_")
                 s = m.get("is_sharpe_ratio", -np.inf)
-                if not (np.isnan(s) or np.isinf(s)) and s > best_sharpe:
-                    best_sharpe = s
-                    best_param  = pval
+                if np.isnan(s) or np.isinf(s):
+                    continue
+                # Blend IS Sharpe with historical OOS EMA score
+                adjusted = s + OOS_EMA_WEIGHT * param_oos_ema.get(pval, 0.0)
+                if adjusted > best_adjusted:
+                    best_adjusted  = adjusted
+                    best_is_sharpe = s
+                    best_param     = pval
             except Exception:
                 continue
 
         best_params_log.append({
-            "step":          step,
-            "is_start":      str(is_idx[0].date()),
-            "is_end":        str(is_idx[-1].date()),
-            "best_param":    best_param,
-            "best_is_sharpe": round(best_sharpe, 3) if best_sharpe != -np.inf else None,
+            "step":           step,
+            "is_start":       str(is_idx[0].date()),
+            "is_end":         str(is_idx[-1].date()),
+            "best_param":     best_param,
+            "best_is_sharpe": round(best_is_sharpe, 3) if best_is_sharpe != -np.inf else None,
+            "ema_boost":      round(OOS_EMA_WEIGHT * param_oos_ema.get(best_param, 0.0), 4),
+            "ema_scores":     {str(p): round(v, 4) for p, v in param_oos_ema.items()},
         })
 
         # ── IS metrics with best param ────────────────────────────────────
@@ -287,6 +346,14 @@ def walk_forward_backtest_optimized(
             sig_oos = pd.Series(0, index=ret_oos.index)
         oos_m = compute_metrics(ret_oos, sig_oos, "oos_")
 
+        # ── Update OOS EMA for selected param (use AFTER OOS is evaluated) ─
+        oos_sharpe_this = oos_m.get("oos_sharpe_ratio", 0.0)
+        if not (np.isnan(oos_sharpe_this) or np.isinf(oos_sharpe_this)):
+            param_oos_ema[best_param] = (
+                OOS_EMA_DECAY * param_oos_ema[best_param]
+                + (1 - OOS_EMA_DECAY) * oos_sharpe_this
+            )
+
         is_results.append(is_m)
         oos_results.append(oos_m)
 
@@ -295,12 +362,12 @@ def walk_forward_backtest_optimized(
         oos_bah_returns.append(ret_oos.dropna())
 
         step  += 1
-        start += STEP_SIZE
+        start += _stp
 
     if step < MIN_WF_STEPS:
         return None
 
-    # Save per-window best-param log
+    # Save per-window best-param log (includes EMA scores for inspection)
     try:
         with open(RESULTS_DIR / f"best_params_{sig_id}.json", "w") as f:
             json.dump(best_params_log, f, indent=2)
@@ -325,8 +392,9 @@ def rolling_sharpe(returns: pd.Series, signal: pd.Series, window: int = 252) -> 
 def run_all_backtests():
     print("=" * 70)
     print("10Y UST SIGNAL BACKTEST ENGINE")
-    print(f"IS={IS_WINDOW}d | OOS={OOS_WINDOW}d | Step={STEP_SIZE}d  "
-          f"| IS_OPT={'ON' if ENABLE_IS_OPTIMIZATION else 'OFF'}")
+    print(f"IS_OPT={'ON' if ENABLE_IS_OPTIMIZATION else 'OFF'}  "
+          f"| OOS_EMA_WEIGHT={OOS_EMA_WEIGHT}  OOS_EMA_DECAY={OOS_EMA_DECAY}")
+    print(f"Per-category windows: { {k: v for k, v in CATEGORY_WINDOWS.items()} }")
     print("=" * 70)
 
     # Load data
@@ -345,11 +413,6 @@ def run_all_backtests():
     print(f"  Approx:       {approx_start.date() if approx_start else 'N/A'} → "
           f"{(ief_start - pd.Timedelta(days=1)).date() if ief_start else 'N/A'}")
 
-    n_total = len(returns)
-    expected_steps = max(0, (n_total - IS_WINDOW - OOS_WINDOW) // STEP_SIZE)
-    print(f"  Expected WF steps: ~{expected_steps} "
-          f"(IS={IS_WINDOW}d, OOS={OOS_WINDOW}d, step={STEP_SIZE}d)")
-
     # Buy-and-hold benchmark
     bah = compute_buy_and_hold(returns)
     print(f"\nBuy-and-Hold: Sharpe={bah['sharpe']}, Return={bah['total_return']}%, "
@@ -363,7 +426,7 @@ def run_all_backtests():
     print("\nRunning walk-forward backtests...")
     summary_rows  = []
     equity_curves = {}
-    rolling_sharpes = {}
+    rolling_sharpes_d = {}
 
     for sig_id, sig_name, category, fn in ALL_SIGNALS:
         col = f"{sig_id}_{sig_name}"
@@ -371,10 +434,14 @@ def run_all_backtests():
             continue
         signal = signals_df[col]
 
+        # Per-category walk-forward window config
+        _is_w, _oos_w, _stp_w = CATEGORY_WINDOWS.get(category, (IS_WINDOW, OOS_WINDOW, STEP_SIZE))
+
         # Align with returns
         common = returns.index.intersection(signal.dropna().index)
-        if len(common) < IS_WINDOW + OOS_WINDOW:
-            print(f"  [{sig_id}] SKIP — insufficient data ({len(common)} rows)")
+        if len(common) < _is_w + _oos_w:
+            print(f"  [{sig_id}] SKIP — insufficient data ({len(common)} rows, "
+                  f"need {_is_w + _oos_w})")
             continue
 
         ret_aligned = returns.reindex(common)
@@ -385,13 +452,19 @@ def run_all_backtests():
         bah_full = compute_metrics(ret_aligned,
                                    pd.Series(1.0, index=ret_aligned.index), "bah_")
 
-        # Walk-forward — optimised or one-pass
+        # Walk-forward — optimised (with OOS memory) or one-pass
         param_grid = SIGNAL_PARAM_GRIDS.get(sig_id)
         if ENABLE_IS_OPTIMIZATION and param_grid and sig_id not in SKIP_IS_OPTIMIZATION:
-            wf = walk_forward_backtest_optimized(ret_aligned, df, sig_id, fn, param_grid)
-            opt_label = "[OPT]"
+            wf = walk_forward_backtest_optimized(
+                ret_aligned, df, sig_id, fn, param_grid,
+                is_window=_is_w, oos_window=_oos_w, step_size=_stp_w,
+            )
+            opt_label = "[OPT+MEM]"
         else:
-            wf = walk_forward_backtest(ret_aligned, sig_aligned)
+            wf = walk_forward_backtest(
+                ret_aligned, sig_aligned,
+                is_window=_is_w, oos_window=_oos_w, step_size=_stp_w,
+            )
             opt_label = ""
 
         # Rolling Sharpe
@@ -405,6 +478,8 @@ def run_all_backtests():
             "Category": category,
             "Start":    str(common[0].date()),
             "N_Days":   len(common),
+            "IS_Days":  _is_w,
+            "OOS_Days": _oos_w,
             **full,
             "BAH_Return%":   bah_full["bah_total_return"],
             "BAH_Sharpe":    bah_full["bah_sharpe_ratio"],
@@ -439,21 +514,22 @@ def run_all_backtests():
             row["OOS_TotalRet"] = row["OOS_MaxDD"] = row["OOS_WinRate"] = None
             row["Overfit_Ratio"] = row["WF_Steps"] = row["N_OOS_Positive"] = None
 
-        rolling_sharpes[sig_id] = rs
+        rolling_sharpes_d[sig_id] = rs
         summary_rows.append(row)
 
-        oos_str = f"OOS={row.get('OOS_Sharpe', 'N/A')}" if row.get("OOS_Sharpe") is not None else "OOS=N/A"
+        oos_str = (f"OOS={row['OOS_Sharpe']:.3f}" if row.get("OOS_Sharpe") is not None
+                   else "OOS=N/A")
         print(f"  [{sig_id}] {sig_name:20s}  "
               f"Sharpe={full['sharpe_ratio']:6.3f}  "
               f"MaxDD={full['max_drawdown']:7.2f}%  "
-              f"{oos_str}  ExcessSharpe={excess_sharpe:+.3f}  {opt_label}")
+              f"{oos_str}  IS={_is_w}d step={_stp_w}d  {opt_label}")
 
     # Save summary table
     summary_df = pd.DataFrame(summary_rows)
     summary_df.to_csv(RESULTS_DIR / "backtest_summary.csv", index=False)
 
     # Save rolling Sharpe matrix
-    rs_df = pd.DataFrame(rolling_sharpes, index=returns.index)
+    rs_df = pd.DataFrame(rolling_sharpes_d, index=returns.index)
     rs_df.to_csv(RESULTS_DIR / "rolling_sharpe.csv")
 
     # Save B&H benchmark
@@ -466,7 +542,7 @@ def run_all_backtests():
     print("\n" + "=" * 70)
     print("BACKTEST SUMMARY — ALL SIGNALS VS BUY-AND-HOLD")
     print("=" * 70)
-    display_cols = ["ID", "Name", "Category", "sharpe_ratio", "max_drawdown",
+    display_cols = ["ID", "Name", "Category", "IS_Days", "sharpe_ratio", "max_drawdown",
                     "hit_rate", "IS_Sharpe", "OOS_Sharpe", "OOS_AnnReturn", "OOS_MaxDD",
                     "N_OOS_Positive", "Overfit_Ratio", "BAH_Sharpe", "Excess_Sharpe"]
     display_cols = [c for c in display_cols if c in summary_df.columns]
