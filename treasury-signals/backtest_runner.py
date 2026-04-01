@@ -141,8 +141,26 @@ def _aggregate_wf_results(is_results, oos_results, oos_returns, oos_bah_returns,
     if oos_returns:
         all_oos = pd.concat(oos_returns).sort_index()
         all_bah = pd.concat(oos_bah_returns).sort_index()
-        equity_strat = (1 + all_oos).cumprod()
-        equity_bah   = (1 + all_bah).cumprod()
+        # Drop any residual NaN rows (can occur when all signals are in warmup)
+        all_oos = all_oos.dropna()
+        all_bah = all_bah.dropna()
+
+        if len(all_oos) == 0:
+            equity_strat = pd.Series(dtype=float)
+            equity_bah   = pd.Series(dtype=float)
+            oos_stitched = {}
+        else:
+            equity_strat = (1 + all_oos).cumprod()
+            equity_bah   = (1 + all_bah).cumprod()
+
+        if len(all_oos) == 0:
+            return {
+                "is_avg": is_avg, "oos_avg": oos_avg, "oos_stitched": {},
+                "overfit_ratio": overfit_ratio, "n_wf_steps": step,
+                "n_oos_positive": n_oos_positive,
+                "equity_strat": pd.Series(dtype=float),
+                "equity_bah":   pd.Series(dtype=float),
+            }
 
         n_oos_years   = len(all_oos) / 252
         oos_total_ret = float(equity_strat.iloc[-1] - 1)
