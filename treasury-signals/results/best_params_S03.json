@@ -1,0 +1,2972 @@
+[
+  {
+    "step": 0,
+    "is_start": "2003-12-19",
+    "is_end": "2004-06-11",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.0,
+    "ema_scores": {
+      "126": 0.0
+    }
+  },
+  {
+    "step": 1,
+    "is_start": "2004-01-19",
+    "is_end": "2004-07-12",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.6363,
+    "ema_scores": {
+      "126": 2.121
+    }
+  },
+  {
+    "step": 2,
+    "is_start": "2004-02-17",
+    "is_end": "2004-08-10",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.0086,
+    "ema_scores": {
+      "126": 3.3621
+    }
+  },
+  {
+    "step": 3,
+    "is_start": "2004-03-17",
+    "is_end": "2004-09-08",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.2972,
+    "ema_scores": {
+      "126": 4.3239
+    }
+  },
+  {
+    "step": 4,
+    "is_start": "2004-04-15",
+    "is_end": "2004-10-07",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5987,
+    "ema_scores": {
+      "126": 5.3289
+    }
+  },
+  {
+    "step": 5,
+    "is_start": "2004-05-14",
+    "is_end": "2004-11-05",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6068,
+    "ema_scores": {
+      "126": 5.3559
+    }
+  },
+  {
+    "step": 6,
+    "is_start": "2004-06-14",
+    "is_end": "2004-12-06",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7573,
+    "ema_scores": {
+      "126": 5.8576
+    }
+  },
+  {
+    "step": 7,
+    "is_start": "2004-07-13",
+    "is_end": "2005-01-04",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.773,
+    "ema_scores": {
+      "126": 5.9099
+    }
+  },
+  {
+    "step": 8,
+    "is_start": "2004-08-11",
+    "is_end": "2005-02-02",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9144,
+    "ema_scores": {
+      "126": 6.3812
+    }
+  },
+  {
+    "step": 9,
+    "is_start": "2004-09-09",
+    "is_end": "2005-03-03",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.377,
+    "ema_scores": {
+      "126": 4.5899
+    }
+  },
+  {
+    "step": 10,
+    "is_start": "2004-10-08",
+    "is_end": "2005-04-01",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5323,
+    "ema_scores": {
+      "126": 5.1077
+    }
+  },
+  {
+    "step": 11,
+    "is_start": "2004-11-08",
+    "is_end": "2005-05-02",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.938,
+    "ema_scores": {
+      "126": 6.4599
+    }
+  },
+  {
+    "step": 12,
+    "is_start": "2004-12-07",
+    "is_end": "2005-05-31",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7183,
+    "ema_scores": {
+      "126": 5.7276
+    }
+  },
+  {
+    "step": 13,
+    "is_start": "2005-01-05",
+    "is_end": "2005-06-29",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.15,
+    "ema_scores": {
+      "126": 7.1665
+    }
+  },
+  {
+    "step": 14,
+    "is_start": "2005-02-03",
+    "is_end": "2005-07-28",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8703,
+    "ema_scores": {
+      "126": 6.2343
+    }
+  },
+  {
+    "step": 15,
+    "is_start": "2005-03-04",
+    "is_end": "2005-08-26",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.585,
+    "ema_scores": {
+      "126": 5.2832
+    }
+  },
+  {
+    "step": 16,
+    "is_start": "2005-04-04",
+    "is_end": "2005-09-26",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6582,
+    "ema_scores": {
+      "126": 5.5273
+    }
+  },
+  {
+    "step": 17,
+    "is_start": "2005-05-03",
+    "is_end": "2005-10-25",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8231,
+    "ema_scores": {
+      "126": 6.0771
+    }
+  },
+  {
+    "step": 18,
+    "is_start": "2005-06-01",
+    "is_end": "2005-11-23",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1882,
+    "ema_scores": {
+      "126": 7.2939
+    }
+  },
+  {
+    "step": 19,
+    "is_start": "2005-06-30",
+    "is_end": "2005-12-22",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9034,
+    "ema_scores": {
+      "126": 6.3447
+    }
+  },
+  {
+    "step": 20,
+    "is_start": "2005-07-29",
+    "is_end": "2006-01-20",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.992,
+    "ema_scores": {
+      "126": 6.64
+    }
+  },
+  {
+    "step": 21,
+    "is_start": "2005-08-29",
+    "is_end": "2006-02-20",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.4546,
+    "ema_scores": {
+      "126": 8.182
+    }
+  },
+  {
+    "step": 22,
+    "is_start": "2005-09-27",
+    "is_end": "2006-03-21",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0075,
+    "ema_scores": {
+      "126": 6.6916
+    }
+  },
+  {
+    "step": 23,
+    "is_start": "2005-10-26",
+    "is_end": "2006-04-19",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8848,
+    "ema_scores": {
+      "126": 6.2825
+    }
+  },
+  {
+    "step": 24,
+    "is_start": "2005-11-24",
+    "is_end": "2006-05-18",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6797,
+    "ema_scores": {
+      "126": 5.599
+    }
+  },
+  {
+    "step": 25,
+    "is_start": "2005-12-23",
+    "is_end": "2006-06-16",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8668,
+    "ema_scores": {
+      "126": 6.2227
+    }
+  },
+  {
+    "step": 26,
+    "is_start": "2006-01-23",
+    "is_end": "2006-07-17",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.3737,
+    "ema_scores": {
+      "126": 7.9124
+    }
+  },
+  {
+    "step": 27,
+    "is_start": "2006-02-21",
+    "is_end": "2006-08-15",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1782,
+    "ema_scores": {
+      "126": 7.2607
+    }
+  },
+  {
+    "step": 28,
+    "is_start": "2006-03-22",
+    "is_end": "2006-09-13",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8454,
+    "ema_scores": {
+      "126": 6.1514
+    }
+  },
+  {
+    "step": 29,
+    "is_start": "2006-04-20",
+    "is_end": "2006-10-12",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.3091,
+    "ema_scores": {
+      "126": 7.6972
+    }
+  },
+  {
+    "step": 30,
+    "is_start": "2006-05-19",
+    "is_end": "2006-11-10",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7887,
+    "ema_scores": {
+      "126": 5.9622
+    }
+  },
+  {
+    "step": 31,
+    "is_start": "2006-06-19",
+    "is_end": "2006-12-11",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5703,
+    "ema_scores": {
+      "126": 5.2343
+    }
+  },
+  {
+    "step": 32,
+    "is_start": "2006-07-18",
+    "is_end": "2007-01-09",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5043,
+    "ema_scores": {
+      "126": 5.0143
+    }
+  },
+  {
+    "step": 33,
+    "is_start": "2006-08-16",
+    "is_end": "2007-02-07",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7704,
+    "ema_scores": {
+      "126": 5.9013
+    }
+  },
+  {
+    "step": 34,
+    "is_start": "2006-09-14",
+    "is_end": "2007-03-08",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7021,
+    "ema_scores": {
+      "126": 5.6735
+    }
+  },
+  {
+    "step": 35,
+    "is_start": "2006-10-13",
+    "is_end": "2007-04-06",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6091,
+    "ema_scores": {
+      "126": 5.3638
+    }
+  },
+  {
+    "step": 36,
+    "is_start": "2006-11-13",
+    "is_end": "2007-05-07",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8197,
+    "ema_scores": {
+      "126": 6.0655
+    }
+  },
+  {
+    "step": 37,
+    "is_start": "2006-12-12",
+    "is_end": "2007-06-05",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.4313,
+    "ema_scores": {
+      "126": 8.1045
+    }
+  },
+  {
+    "step": 38,
+    "is_start": "2007-01-10",
+    "is_end": "2007-07-04",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8522,
+    "ema_scores": {
+      "126": 6.1741
+    }
+  },
+  {
+    "step": 39,
+    "is_start": "2007-02-08",
+    "is_end": "2007-08-02",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0043,
+    "ema_scores": {
+      "126": 6.6811
+    }
+  },
+  {
+    "step": 40,
+    "is_start": "2007-03-09",
+    "is_end": "2007-08-31",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.923,
+    "ema_scores": {
+      "126": 6.4099
+    }
+  },
+  {
+    "step": 41,
+    "is_start": "2007-04-09",
+    "is_end": "2007-10-01",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5724,
+    "ema_scores": {
+      "126": 5.2414
+    }
+  },
+  {
+    "step": 42,
+    "is_start": "2007-05-08",
+    "is_end": "2007-10-30",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8086,
+    "ema_scores": {
+      "126": 6.0288
+    }
+  },
+  {
+    "step": 43,
+    "is_start": "2007-06-06",
+    "is_end": "2007-11-28",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.1154,
+    "ema_scores": {
+      "126": 3.7179
+    }
+  },
+  {
+    "step": 44,
+    "is_start": "2007-07-05",
+    "is_end": "2007-12-27",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.3567,
+    "ema_scores": {
+      "126": 1.189
+    }
+  },
+  {
+    "step": 45,
+    "is_start": "2007-08-03",
+    "is_end": "2008-01-25",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": -0.3761,
+    "ema_scores": {
+      "126": -1.2536
+    }
+  },
+  {
+    "step": 46,
+    "is_start": "2007-09-03",
+    "is_end": "2008-02-25",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": -1.3327,
+    "ema_scores": {
+      "126": -4.4424
+    }
+  },
+  {
+    "step": 47,
+    "is_start": "2007-10-02",
+    "is_end": "2008-03-25",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": -0.8591,
+    "ema_scores": {
+      "126": -2.8637
+    }
+  },
+  {
+    "step": 48,
+    "is_start": "2007-10-31",
+    "is_end": "2008-04-23",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.2804,
+    "ema_scores": {
+      "126": 0.9345
+    }
+  },
+  {
+    "step": 49,
+    "is_start": "2007-11-29",
+    "is_end": "2008-05-22",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.5195,
+    "ema_scores": {
+      "126": 1.7318
+    }
+  },
+  {
+    "step": 50,
+    "is_start": "2007-12-28",
+    "is_end": "2008-06-20",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.9177,
+    "ema_scores": {
+      "126": 3.059
+    }
+  },
+  {
+    "step": 51,
+    "is_start": "2008-01-28",
+    "is_end": "2008-07-21",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5591,
+    "ema_scores": {
+      "126": 5.1971
+    }
+  },
+  {
+    "step": 52,
+    "is_start": "2008-02-26",
+    "is_end": "2008-08-19",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7465,
+    "ema_scores": {
+      "126": 5.8217
+    }
+  },
+  {
+    "step": 53,
+    "is_start": "2008-03-26",
+    "is_end": "2008-09-17",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.4799,
+    "ema_scores": {
+      "126": 4.9329
+    }
+  },
+  {
+    "step": 54,
+    "is_start": "2008-04-24",
+    "is_end": "2008-10-16",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.958,
+    "ema_scores": {
+      "126": 6.5268
+    }
+  },
+  {
+    "step": 55,
+    "is_start": "2008-05-23",
+    "is_end": "2008-11-14",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8576,
+    "ema_scores": {
+      "126": 6.1921
+    }
+  },
+  {
+    "step": 56,
+    "is_start": "2008-06-23",
+    "is_end": "2008-12-15",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6492,
+    "ema_scores": {
+      "126": 5.4972
+    }
+  },
+  {
+    "step": 57,
+    "is_start": "2008-07-22",
+    "is_end": "2009-01-13",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8958,
+    "ema_scores": {
+      "126": 6.3192
+    }
+  },
+  {
+    "step": 58,
+    "is_start": "2008-08-20",
+    "is_end": "2009-02-11",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6407,
+    "ema_scores": {
+      "126": 5.4689
+    }
+  },
+  {
+    "step": 59,
+    "is_start": "2008-09-18",
+    "is_end": "2009-03-12",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9932,
+    "ema_scores": {
+      "126": 6.644
+    }
+  },
+  {
+    "step": 60,
+    "is_start": "2008-10-17",
+    "is_end": "2009-04-10",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7771,
+    "ema_scores": {
+      "126": 5.9237
+    }
+  },
+  {
+    "step": 61,
+    "is_start": "2008-11-17",
+    "is_end": "2009-05-11",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8968,
+    "ema_scores": {
+      "126": 6.3228
+    }
+  },
+  {
+    "step": 62,
+    "is_start": "2008-12-16",
+    "is_end": "2009-06-09",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7405,
+    "ema_scores": {
+      "126": 5.8018
+    }
+  },
+  {
+    "step": 63,
+    "is_start": "2009-01-14",
+    "is_end": "2009-07-08",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.4195,
+    "ema_scores": {
+      "126": 4.7317
+    }
+  },
+  {
+    "step": 64,
+    "is_start": "2009-02-12",
+    "is_end": "2009-08-06",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7261,
+    "ema_scores": {
+      "126": 5.7536
+    }
+  },
+  {
+    "step": 65,
+    "is_start": "2009-03-13",
+    "is_end": "2009-09-04",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8261,
+    "ema_scores": {
+      "126": 6.087
+    }
+  },
+  {
+    "step": 66,
+    "is_start": "2009-04-13",
+    "is_end": "2009-10-05",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0384,
+    "ema_scores": {
+      "126": 6.7947
+    }
+  },
+  {
+    "step": 67,
+    "is_start": "2009-05-12",
+    "is_end": "2009-11-03",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.524,
+    "ema_scores": {
+      "126": 5.08
+    }
+  },
+  {
+    "step": 68,
+    "is_start": "2009-06-10",
+    "is_end": "2009-12-02",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6033,
+    "ema_scores": {
+      "126": 5.3443
+    }
+  },
+  {
+    "step": 69,
+    "is_start": "2009-07-09",
+    "is_end": "2009-12-31",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0405,
+    "ema_scores": {
+      "126": 6.8016
+    }
+  },
+  {
+    "step": 70,
+    "is_start": "2009-08-07",
+    "is_end": "2010-01-29",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1386,
+    "ema_scores": {
+      "126": 7.1287
+    }
+  },
+  {
+    "step": 71,
+    "is_start": "2009-09-07",
+    "is_end": "2010-03-01",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.6403,
+    "ema_scores": {
+      "126": 8.801
+    }
+  },
+  {
+    "step": 72,
+    "is_start": "2009-10-06",
+    "is_end": "2010-03-30",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.4532,
+    "ema_scores": {
+      "126": 8.1773
+    }
+  },
+  {
+    "step": 73,
+    "is_start": "2009-11-04",
+    "is_end": "2010-04-28",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.6042,
+    "ema_scores": {
+      "126": 8.6806
+    }
+  },
+  {
+    "step": 74,
+    "is_start": "2009-12-03",
+    "is_end": "2010-05-27",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.2707,
+    "ema_scores": {
+      "126": 7.5689
+    }
+  },
+  {
+    "step": 75,
+    "is_start": "2010-01-01",
+    "is_end": "2010-06-25",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.3247,
+    "ema_scores": {
+      "126": 7.749
+    }
+  },
+  {
+    "step": 76,
+    "is_start": "2010-02-01",
+    "is_end": "2010-07-26",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.2062,
+    "ema_scores": {
+      "126": 7.3542
+    }
+  },
+  {
+    "step": 77,
+    "is_start": "2010-03-02",
+    "is_end": "2010-08-24",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.2369,
+    "ema_scores": {
+      "126": 7.4564
+    }
+  },
+  {
+    "step": 78,
+    "is_start": "2010-03-31",
+    "is_end": "2010-09-22",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.604,
+    "ema_scores": {
+      "126": 5.3467
+    }
+  },
+  {
+    "step": 79,
+    "is_start": "2010-04-29",
+    "is_end": "2010-10-21",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.2372,
+    "ema_scores": {
+      "126": 4.124
+    }
+  },
+  {
+    "step": 80,
+    "is_start": "2010-05-28",
+    "is_end": "2010-11-19",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": -0.3796,
+    "ema_scores": {
+      "126": -1.2652
+    }
+  },
+  {
+    "step": 81,
+    "is_start": "2010-06-28",
+    "is_end": "2010-12-20",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": -0.6218,
+    "ema_scores": {
+      "126": -2.0727
+    }
+  },
+  {
+    "step": 82,
+    "is_start": "2010-07-27",
+    "is_end": "2011-01-18",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": -0.9685,
+    "ema_scores": {
+      "126": -3.2284
+    }
+  },
+  {
+    "step": 83,
+    "is_start": "2010-08-25",
+    "is_end": "2011-02-16",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.2631,
+    "ema_scores": {
+      "126": 0.8769
+    }
+  },
+  {
+    "step": 84,
+    "is_start": "2010-09-23",
+    "is_end": "2011-03-17",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.6305,
+    "ema_scores": {
+      "126": 2.1015
+    }
+  },
+  {
+    "step": 85,
+    "is_start": "2010-10-22",
+    "is_end": "2011-04-15",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.2818,
+    "ema_scores": {
+      "126": 4.2728
+    }
+  },
+  {
+    "step": 86,
+    "is_start": "2010-11-22",
+    "is_end": "2011-05-16",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.2486,
+    "ema_scores": {
+      "126": 4.1621
+    }
+  },
+  {
+    "step": 87,
+    "is_start": "2010-12-21",
+    "is_end": "2011-06-14",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5225,
+    "ema_scores": {
+      "126": 5.075
+    }
+  },
+  {
+    "step": 88,
+    "is_start": "2011-01-19",
+    "is_end": "2011-07-13",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.4788,
+    "ema_scores": {
+      "126": 4.9295
+    }
+  },
+  {
+    "step": 89,
+    "is_start": "2011-02-17",
+    "is_end": "2011-08-11",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.4418,
+    "ema_scores": {
+      "126": 4.806
+    }
+  },
+  {
+    "step": 90,
+    "is_start": "2011-03-18",
+    "is_end": "2011-09-09",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5729,
+    "ema_scores": {
+      "126": 5.2428
+    }
+  },
+  {
+    "step": 91,
+    "is_start": "2011-04-18",
+    "is_end": "2011-10-10",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5792,
+    "ema_scores": {
+      "126": 5.2639
+    }
+  },
+  {
+    "step": 92,
+    "is_start": "2011-05-17",
+    "is_end": "2011-11-08",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.1568,
+    "ema_scores": {
+      "126": 3.856
+    }
+  },
+  {
+    "step": 93,
+    "is_start": "2011-06-15",
+    "is_end": "2011-12-07",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.4445,
+    "ema_scores": {
+      "126": 4.8151
+    }
+  },
+  {
+    "step": 94,
+    "is_start": "2011-07-14",
+    "is_end": "2012-01-05",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5503,
+    "ema_scores": {
+      "126": 5.1676
+    }
+  },
+  {
+    "step": 95,
+    "is_start": "2011-08-12",
+    "is_end": "2012-02-03",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7674,
+    "ema_scores": {
+      "126": 5.8913
+    }
+  },
+  {
+    "step": 96,
+    "is_start": "2011-09-12",
+    "is_end": "2012-03-05",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9774,
+    "ema_scores": {
+      "126": 6.5914
+    }
+  },
+  {
+    "step": 97,
+    "is_start": "2011-10-11",
+    "is_end": "2012-04-03",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.864,
+    "ema_scores": {
+      "126": 6.2133
+    }
+  },
+  {
+    "step": 98,
+    "is_start": "2011-11-09",
+    "is_end": "2012-05-02",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8609,
+    "ema_scores": {
+      "126": 6.203
+    }
+  },
+  {
+    "step": 99,
+    "is_start": "2011-12-08",
+    "is_end": "2012-05-31",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0001,
+    "ema_scores": {
+      "126": 6.6671
+    }
+  },
+  {
+    "step": 100,
+    "is_start": "2012-01-06",
+    "is_end": "2012-06-29",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9909,
+    "ema_scores": {
+      "126": 6.6362
+    }
+  },
+  {
+    "step": 101,
+    "is_start": "2012-02-06",
+    "is_end": "2012-07-30",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9889,
+    "ema_scores": {
+      "126": 6.6295
+    }
+  },
+  {
+    "step": 102,
+    "is_start": "2012-03-06",
+    "is_end": "2012-08-28",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7812,
+    "ema_scores": {
+      "126": 5.9373
+    }
+  },
+  {
+    "step": 103,
+    "is_start": "2012-04-04",
+    "is_end": "2012-09-26",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.581,
+    "ema_scores": {
+      "126": 5.27
+    }
+  },
+  {
+    "step": 104,
+    "is_start": "2012-05-03",
+    "is_end": "2012-10-25",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.4893,
+    "ema_scores": {
+      "126": 4.9643
+    }
+  },
+  {
+    "step": 105,
+    "is_start": "2012-06-01",
+    "is_end": "2012-11-23",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.2049,
+    "ema_scores": {
+      "126": 4.0162
+    }
+  },
+  {
+    "step": 106,
+    "is_start": "2012-07-02",
+    "is_end": "2012-12-24",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5679,
+    "ema_scores": {
+      "126": 5.2263
+    }
+  },
+  {
+    "step": 107,
+    "is_start": "2012-07-31",
+    "is_end": "2013-01-22",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.3728,
+    "ema_scores": {
+      "126": 4.5761
+    }
+  },
+  {
+    "step": 108,
+    "is_start": "2012-08-29",
+    "is_end": "2013-02-20",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6272,
+    "ema_scores": {
+      "126": 5.4239
+    }
+  },
+  {
+    "step": 109,
+    "is_start": "2012-09-27",
+    "is_end": "2013-03-21",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9433,
+    "ema_scores": {
+      "126": 6.4778
+    }
+  },
+  {
+    "step": 110,
+    "is_start": "2012-10-26",
+    "is_end": "2013-04-19",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8058,
+    "ema_scores": {
+      "126": 6.0192
+    }
+  },
+  {
+    "step": 111,
+    "is_start": "2012-11-26",
+    "is_end": "2013-05-20",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5113,
+    "ema_scores": {
+      "126": 5.0375
+    }
+  },
+  {
+    "step": 112,
+    "is_start": "2012-12-25",
+    "is_end": "2013-06-18",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.2672,
+    "ema_scores": {
+      "126": 4.2241
+    }
+  },
+  {
+    "step": 113,
+    "is_start": "2013-01-23",
+    "is_end": "2013-07-17",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5922,
+    "ema_scores": {
+      "126": 5.3073
+    }
+  },
+  {
+    "step": 114,
+    "is_start": "2013-02-21",
+    "is_end": "2013-08-15",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0349,
+    "ema_scores": {
+      "126": 6.7829
+    }
+  },
+  {
+    "step": 115,
+    "is_start": "2013-03-22",
+    "is_end": "2013-09-13",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.2788,
+    "ema_scores": {
+      "126": 7.596
+    }
+  },
+  {
+    "step": 116,
+    "is_start": "2013-04-22",
+    "is_end": "2013-10-14",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9916,
+    "ema_scores": {
+      "126": 6.6387
+    }
+  },
+  {
+    "step": 117,
+    "is_start": "2013-05-21",
+    "is_end": "2013-11-12",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.524,
+    "ema_scores": {
+      "126": 5.08
+    }
+  },
+  {
+    "step": 118,
+    "is_start": "2013-06-19",
+    "is_end": "2013-12-11",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.4366,
+    "ema_scores": {
+      "126": 4.7887
+    }
+  },
+  {
+    "step": 119,
+    "is_start": "2013-07-18",
+    "is_end": "2014-01-09",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6914,
+    "ema_scores": {
+      "126": 5.6381
+    }
+  },
+  {
+    "step": 120,
+    "is_start": "2013-08-16",
+    "is_end": "2014-02-07",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.3806,
+    "ema_scores": {
+      "126": 4.6019
+    }
+  },
+  {
+    "step": 121,
+    "is_start": "2013-09-16",
+    "is_end": "2014-03-10",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7461,
+    "ema_scores": {
+      "126": 5.8202
+    }
+  },
+  {
+    "step": 122,
+    "is_start": "2013-10-15",
+    "is_end": "2014-04-08",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8828,
+    "ema_scores": {
+      "126": 6.2758
+    }
+  },
+  {
+    "step": 123,
+    "is_start": "2013-11-13",
+    "is_end": "2014-05-07",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7536,
+    "ema_scores": {
+      "126": 5.8454
+    }
+  },
+  {
+    "step": 124,
+    "is_start": "2013-12-12",
+    "is_end": "2014-06-05",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7999,
+    "ema_scores": {
+      "126": 5.9998
+    }
+  },
+  {
+    "step": 125,
+    "is_start": "2014-01-10",
+    "is_end": "2014-07-04",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.2,
+    "ema_scores": {
+      "126": 7.3333
+    }
+  },
+  {
+    "step": 126,
+    "is_start": "2014-02-10",
+    "is_end": "2014-08-04",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9593,
+    "ema_scores": {
+      "126": 6.531
+    }
+  },
+  {
+    "step": 127,
+    "is_start": "2014-03-11",
+    "is_end": "2014-09-02",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9256,
+    "ema_scores": {
+      "126": 6.4188
+    }
+  },
+  {
+    "step": 128,
+    "is_start": "2014-04-09",
+    "is_end": "2014-10-01",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.005,
+    "ema_scores": {
+      "126": 6.6835
+    }
+  },
+  {
+    "step": 129,
+    "is_start": "2014-05-08",
+    "is_end": "2014-10-30",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.874,
+    "ema_scores": {
+      "126": 6.2465
+    }
+  },
+  {
+    "step": 130,
+    "is_start": "2014-06-06",
+    "is_end": "2014-11-28",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8622,
+    "ema_scores": {
+      "126": 6.2074
+    }
+  },
+  {
+    "step": 131,
+    "is_start": "2014-07-07",
+    "is_end": "2014-12-29",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.361,
+    "ema_scores": {
+      "126": 7.8699
+    }
+  },
+  {
+    "step": 132,
+    "is_start": "2014-08-05",
+    "is_end": "2015-01-27",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.369,
+    "ema_scores": {
+      "126": 7.8966
+    }
+  },
+  {
+    "step": 133,
+    "is_start": "2014-09-03",
+    "is_end": "2015-02-25",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.099,
+    "ema_scores": {
+      "126": 6.9967
+    }
+  },
+  {
+    "step": 134,
+    "is_start": "2014-10-02",
+    "is_end": "2015-03-26",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5259,
+    "ema_scores": {
+      "126": 5.0864
+    }
+  },
+  {
+    "step": 135,
+    "is_start": "2014-10-31",
+    "is_end": "2015-04-24",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.4821,
+    "ema_scores": {
+      "126": 4.9405
+    }
+  },
+  {
+    "step": 136,
+    "is_start": "2014-12-01",
+    "is_end": "2015-05-25",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8608,
+    "ema_scores": {
+      "126": 6.2027
+    }
+  },
+  {
+    "step": 137,
+    "is_start": "2014-12-30",
+    "is_end": "2015-06-23",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8062,
+    "ema_scores": {
+      "126": 6.0207
+    }
+  },
+  {
+    "step": 138,
+    "is_start": "2015-01-28",
+    "is_end": "2015-07-22",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9847,
+    "ema_scores": {
+      "126": 6.6157
+    }
+  },
+  {
+    "step": 139,
+    "is_start": "2015-02-26",
+    "is_end": "2015-08-20",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1134,
+    "ema_scores": {
+      "126": 7.0448
+    }
+  },
+  {
+    "step": 140,
+    "is_start": "2015-03-27",
+    "is_end": "2015-09-18",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9296,
+    "ema_scores": {
+      "126": 6.432
+    }
+  },
+  {
+    "step": 141,
+    "is_start": "2015-04-27",
+    "is_end": "2015-10-19",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6406,
+    "ema_scores": {
+      "126": 5.4687
+    }
+  },
+  {
+    "step": 142,
+    "is_start": "2015-05-26",
+    "is_end": "2015-11-17",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7698,
+    "ema_scores": {
+      "126": 5.8993
+    }
+  },
+  {
+    "step": 143,
+    "is_start": "2015-06-24",
+    "is_end": "2015-12-16",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9617,
+    "ema_scores": {
+      "126": 6.5391
+    }
+  },
+  {
+    "step": 144,
+    "is_start": "2015-07-23",
+    "is_end": "2016-01-14",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5322,
+    "ema_scores": {
+      "126": 5.1075
+    }
+  },
+  {
+    "step": 145,
+    "is_start": "2015-08-21",
+    "is_end": "2016-02-12",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.2866,
+    "ema_scores": {
+      "126": 7.6219
+    }
+  },
+  {
+    "step": 146,
+    "is_start": "2015-09-21",
+    "is_end": "2016-03-14",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9546,
+    "ema_scores": {
+      "126": 6.5152
+    }
+  },
+  {
+    "step": 147,
+    "is_start": "2015-10-20",
+    "is_end": "2016-04-12",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8687,
+    "ema_scores": {
+      "126": 6.229
+    }
+  },
+  {
+    "step": 148,
+    "is_start": "2015-11-18",
+    "is_end": "2016-05-11",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.2135,
+    "ema_scores": {
+      "126": 7.3783
+    }
+  },
+  {
+    "step": 149,
+    "is_start": "2015-12-17",
+    "is_end": "2016-06-09",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7463,
+    "ema_scores": {
+      "126": 5.8209
+    }
+  },
+  {
+    "step": 150,
+    "is_start": "2016-01-15",
+    "is_end": "2016-07-08",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8375,
+    "ema_scores": {
+      "126": 6.1251
+    }
+  },
+  {
+    "step": 151,
+    "is_start": "2016-02-15",
+    "is_end": "2016-08-08",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.666,
+    "ema_scores": {
+      "126": 5.5533
+    }
+  },
+  {
+    "step": 152,
+    "is_start": "2016-03-15",
+    "is_end": "2016-09-06",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7953,
+    "ema_scores": {
+      "126": 5.9843
+    }
+  },
+  {
+    "step": 153,
+    "is_start": "2016-04-13",
+    "is_end": "2016-10-05",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0771,
+    "ema_scores": {
+      "126": 6.9235
+    }
+  },
+  {
+    "step": 154,
+    "is_start": "2016-05-12",
+    "is_end": "2016-11-03",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7425,
+    "ema_scores": {
+      "126": 5.8083
+    }
+  },
+  {
+    "step": 155,
+    "is_start": "2016-06-10",
+    "is_end": "2016-12-02",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8387,
+    "ema_scores": {
+      "126": 6.1289
+    }
+  },
+  {
+    "step": 156,
+    "is_start": "2016-07-11",
+    "is_end": "2017-01-02",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0637,
+    "ema_scores": {
+      "126": 6.8789
+    }
+  },
+  {
+    "step": 157,
+    "is_start": "2016-08-09",
+    "is_end": "2017-01-31",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5907,
+    "ema_scores": {
+      "126": 5.3024
+    }
+  },
+  {
+    "step": 158,
+    "is_start": "2016-09-07",
+    "is_end": "2017-03-01",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.1267,
+    "ema_scores": {
+      "126": 3.7555
+    }
+  },
+  {
+    "step": 159,
+    "is_start": "2016-10-06",
+    "is_end": "2017-03-30",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6886,
+    "ema_scores": {
+      "126": 5.6286
+    }
+  },
+  {
+    "step": 160,
+    "is_start": "2016-11-04",
+    "is_end": "2017-04-28",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7734,
+    "ema_scores": {
+      "126": 5.9113
+    }
+  },
+  {
+    "step": 161,
+    "is_start": "2016-12-05",
+    "is_end": "2017-05-29",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8113,
+    "ema_scores": {
+      "126": 6.0375
+    }
+  },
+  {
+    "step": 162,
+    "is_start": "2017-01-03",
+    "is_end": "2017-06-27",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0769,
+    "ema_scores": {
+      "126": 6.923
+    }
+  },
+  {
+    "step": 163,
+    "is_start": "2017-02-01",
+    "is_end": "2017-07-26",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1964,
+    "ema_scores": {
+      "126": 7.3214
+    }
+  },
+  {
+    "step": 164,
+    "is_start": "2017-03-02",
+    "is_end": "2017-08-24",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.3609,
+    "ema_scores": {
+      "126": 7.8697
+    }
+  },
+  {
+    "step": 165,
+    "is_start": "2017-03-31",
+    "is_end": "2017-09-22",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1064,
+    "ema_scores": {
+      "126": 7.0214
+    }
+  },
+  {
+    "step": 166,
+    "is_start": "2017-05-01",
+    "is_end": "2017-10-23",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.2135,
+    "ema_scores": {
+      "126": 7.3783
+    }
+  },
+  {
+    "step": 167,
+    "is_start": "2017-05-30",
+    "is_end": "2017-11-21",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1702,
+    "ema_scores": {
+      "126": 7.2339
+    }
+  },
+  {
+    "step": 168,
+    "is_start": "2017-06-28",
+    "is_end": "2017-12-20",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7408,
+    "ema_scores": {
+      "126": 5.8026
+    }
+  },
+  {
+    "step": 169,
+    "is_start": "2017-07-27",
+    "is_end": "2018-01-18",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7862,
+    "ema_scores": {
+      "126": 5.9539
+    }
+  },
+  {
+    "step": 170,
+    "is_start": "2017-08-25",
+    "is_end": "2018-02-16",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6328,
+    "ema_scores": {
+      "126": 5.4428
+    }
+  },
+  {
+    "step": 171,
+    "is_start": "2017-09-25",
+    "is_end": "2018-03-19",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6874,
+    "ema_scores": {
+      "126": 5.6246
+    }
+  },
+  {
+    "step": 172,
+    "is_start": "2017-10-24",
+    "is_end": "2018-04-17",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5882,
+    "ema_scores": {
+      "126": 5.2941
+    }
+  },
+  {
+    "step": 173,
+    "is_start": "2017-11-22",
+    "is_end": "2018-05-16",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1392,
+    "ema_scores": {
+      "126": 7.1307
+    }
+  },
+  {
+    "step": 174,
+    "is_start": "2017-12-21",
+    "is_end": "2018-06-14",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8296,
+    "ema_scores": {
+      "126": 6.0988
+    }
+  },
+  {
+    "step": 175,
+    "is_start": "2018-01-19",
+    "is_end": "2018-07-13",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7378,
+    "ema_scores": {
+      "126": 5.7926
+    }
+  },
+  {
+    "step": 176,
+    "is_start": "2018-02-19",
+    "is_end": "2018-08-13",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.7913,
+    "ema_scores": {
+      "126": 9.3045
+    }
+  },
+  {
+    "step": 177,
+    "is_start": "2018-03-20",
+    "is_end": "2018-09-11",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.6645,
+    "ema_scores": {
+      "126": 8.8816
+    }
+  },
+  {
+    "step": 178,
+    "is_start": "2018-04-18",
+    "is_end": "2018-10-10",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.7297,
+    "ema_scores": {
+      "126": 9.0989
+    }
+  },
+  {
+    "step": 179,
+    "is_start": "2018-05-17",
+    "is_end": "2018-11-08",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.9497,
+    "ema_scores": {
+      "126": 9.8325
+    }
+  },
+  {
+    "step": 180,
+    "is_start": "2018-06-15",
+    "is_end": "2018-12-07",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.1788,
+    "ema_scores": {
+      "126": 10.5961
+    }
+  },
+  {
+    "step": 181,
+    "is_start": "2018-07-16",
+    "is_end": "2019-01-07",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.924,
+    "ema_scores": {
+      "126": 13.0801
+    }
+  },
+  {
+    "step": 182,
+    "is_start": "2018-08-14",
+    "is_end": "2019-02-05",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.8222,
+    "ema_scores": {
+      "126": 12.7408
+    }
+  },
+  {
+    "step": 183,
+    "is_start": "2018-09-12",
+    "is_end": "2019-03-06",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.3078,
+    "ema_scores": {
+      "126": 11.026
+    }
+  },
+  {
+    "step": 184,
+    "is_start": "2018-10-11",
+    "is_end": "2019-04-04",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.6994,
+    "ema_scores": {
+      "126": 8.998
+    }
+  },
+  {
+    "step": 185,
+    "is_start": "2018-11-09",
+    "is_end": "2019-05-03",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.5937,
+    "ema_scores": {
+      "126": 8.6455
+    }
+  },
+  {
+    "step": 186,
+    "is_start": "2018-12-10",
+    "is_end": "2019-06-03",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.5874,
+    "ema_scores": {
+      "126": 8.6247
+    }
+  },
+  {
+    "step": 187,
+    "is_start": "2019-01-08",
+    "is_end": "2019-07-02",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.6025,
+    "ema_scores": {
+      "126": 8.6752
+    }
+  },
+  {
+    "step": 188,
+    "is_start": "2019-02-06",
+    "is_end": "2019-07-31",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9598,
+    "ema_scores": {
+      "126": 6.5325
+    }
+  },
+  {
+    "step": 189,
+    "is_start": "2019-03-07",
+    "is_end": "2019-08-29",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.3492,
+    "ema_scores": {
+      "126": 4.4975
+    }
+  },
+  {
+    "step": 190,
+    "is_start": "2019-04-05",
+    "is_end": "2019-09-27",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.9751,
+    "ema_scores": {
+      "126": 3.2502
+    }
+  },
+  {
+    "step": 191,
+    "is_start": "2019-05-06",
+    "is_end": "2019-10-28",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.8673,
+    "ema_scores": {
+      "126": 2.8911
+    }
+  },
+  {
+    "step": 192,
+    "is_start": "2019-06-04",
+    "is_end": "2019-11-26",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": -0.0193,
+    "ema_scores": {
+      "126": -0.0643
+    }
+  },
+  {
+    "step": 193,
+    "is_start": "2019-07-03",
+    "is_end": "2019-12-25",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.2848,
+    "ema_scores": {
+      "126": 0.9492
+    }
+  },
+  {
+    "step": 194,
+    "is_start": "2019-08-01",
+    "is_end": "2020-01-23",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.2311,
+    "ema_scores": {
+      "126": 0.7704
+    }
+  },
+  {
+    "step": 195,
+    "is_start": "2019-08-30",
+    "is_end": "2020-02-21",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.6624,
+    "ema_scores": {
+      "126": 2.2081
+    }
+  },
+  {
+    "step": 196,
+    "is_start": "2019-09-30",
+    "is_end": "2020-03-23",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.1842,
+    "ema_scores": {
+      "126": 0.6139
+    }
+  },
+  {
+    "step": 197,
+    "is_start": "2019-10-29",
+    "is_end": "2020-04-21",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.3446,
+    "ema_scores": {
+      "126": 1.1485
+    }
+  },
+  {
+    "step": 198,
+    "is_start": "2019-11-27",
+    "is_end": "2020-05-20",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.5706,
+    "ema_scores": {
+      "126": 1.902
+    }
+  },
+  {
+    "step": 199,
+    "is_start": "2019-12-26",
+    "is_end": "2020-06-18",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.133,
+    "ema_scores": {
+      "126": 3.7767
+    }
+  },
+  {
+    "step": 200,
+    "is_start": "2020-01-24",
+    "is_end": "2020-07-17",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0505,
+    "ema_scores": {
+      "126": 6.835
+    }
+  },
+  {
+    "step": 201,
+    "is_start": "2020-02-24",
+    "is_end": "2020-08-17",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.9411,
+    "ema_scores": {
+      "126": 9.8038
+    }
+  },
+  {
+    "step": 202,
+    "is_start": "2020-03-24",
+    "is_end": "2020-09-15",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.8659,
+    "ema_scores": {
+      "126": 9.553
+    }
+  },
+  {
+    "step": 203,
+    "is_start": "2020-04-22",
+    "is_end": "2020-10-14",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.5661,
+    "ema_scores": {
+      "126": 8.5537
+    }
+  },
+  {
+    "step": 204,
+    "is_start": "2020-05-21",
+    "is_end": "2020-11-12",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.0723,
+    "ema_scores": {
+      "126": 10.241
+    }
+  },
+  {
+    "step": 205,
+    "is_start": "2020-06-19",
+    "is_end": "2020-12-11",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.0319,
+    "ema_scores": {
+      "126": 10.1063
+    }
+  },
+  {
+    "step": 206,
+    "is_start": "2020-07-20",
+    "is_end": "2021-01-11",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.0589,
+    "ema_scores": {
+      "126": 10.1962
+    }
+  },
+  {
+    "step": 207,
+    "is_start": "2020-08-18",
+    "is_end": "2021-02-09",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.6901,
+    "ema_scores": {
+      "126": 12.3004
+    }
+  },
+  {
+    "step": 208,
+    "is_start": "2020-09-16",
+    "is_end": "2021-03-10",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.2339,
+    "ema_scores": {
+      "126": 10.7795
+    }
+  },
+  {
+    "step": 209,
+    "is_start": "2020-10-15",
+    "is_end": "2021-04-08",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.494,
+    "ema_scores": {
+      "126": 11.6467
+    }
+  },
+  {
+    "step": 210,
+    "is_start": "2020-11-13",
+    "is_end": "2021-05-07",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.2366,
+    "ema_scores": {
+      "126": 10.7888
+    }
+  },
+  {
+    "step": 211,
+    "is_start": "2020-12-14",
+    "is_end": "2021-06-07",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.0293,
+    "ema_scores": {
+      "126": 10.0976
+    }
+  },
+  {
+    "step": 212,
+    "is_start": "2021-01-12",
+    "is_end": "2021-07-06",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.7285,
+    "ema_scores": {
+      "126": 12.4285
+    }
+  },
+  {
+    "step": 213,
+    "is_start": "2021-02-10",
+    "is_end": "2021-08-04",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.4067,
+    "ema_scores": {
+      "126": 11.3555
+    }
+  },
+  {
+    "step": 214,
+    "is_start": "2021-03-11",
+    "is_end": "2021-09-02",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.4029,
+    "ema_scores": {
+      "126": 11.3431
+    }
+  },
+  {
+    "step": 215,
+    "is_start": "2021-04-09",
+    "is_end": "2021-10-01",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.2082,
+    "ema_scores": {
+      "126": 10.6938
+    }
+  },
+  {
+    "step": 216,
+    "is_start": "2021-05-10",
+    "is_end": "2021-11-01",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.2573,
+    "ema_scores": {
+      "126": 10.8577
+    }
+  },
+  {
+    "step": 217,
+    "is_start": "2021-06-08",
+    "is_end": "2021-11-30",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.9449,
+    "ema_scores": {
+      "126": 9.8162
+    }
+  },
+  {
+    "step": 218,
+    "is_start": "2021-07-07",
+    "is_end": "2021-12-29",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.0788,
+    "ema_scores": {
+      "126": 10.2628
+    }
+  },
+  {
+    "step": 219,
+    "is_start": "2021-08-05",
+    "is_end": "2022-01-27",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.884,
+    "ema_scores": {
+      "126": 9.6134
+    }
+  },
+  {
+    "step": 220,
+    "is_start": "2021-09-03",
+    "is_end": "2022-02-25",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.3531,
+    "ema_scores": {
+      "126": 11.1769
+    }
+  },
+  {
+    "step": 221,
+    "is_start": "2021-10-04",
+    "is_end": "2022-03-28",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 3.0024,
+    "ema_scores": {
+      "126": 10.0081
+    }
+  },
+  {
+    "step": 222,
+    "is_start": "2021-11-02",
+    "is_end": "2022-04-26",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.9964,
+    "ema_scores": {
+      "126": 9.988
+    }
+  },
+  {
+    "step": 223,
+    "is_start": "2021-12-01",
+    "is_end": "2022-05-25",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0542,
+    "ema_scores": {
+      "126": 6.8473
+    }
+  },
+  {
+    "step": 224,
+    "is_start": "2021-12-30",
+    "is_end": "2022-06-23",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.2309,
+    "ema_scores": {
+      "126": 4.1031
+    }
+  },
+  {
+    "step": 225,
+    "is_start": "2022-01-28",
+    "is_end": "2022-07-22",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.3676,
+    "ema_scores": {
+      "126": 1.2255
+    }
+  },
+  {
+    "step": 226,
+    "is_start": "2022-02-28",
+    "is_end": "2022-08-22",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": -0.3052,
+    "ema_scores": {
+      "126": -1.0175
+    }
+  },
+  {
+    "step": 227,
+    "is_start": "2022-03-29",
+    "is_end": "2022-09-20",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": -0.3343,
+    "ema_scores": {
+      "126": -1.1142
+    }
+  },
+  {
+    "step": 228,
+    "is_start": "2022-04-27",
+    "is_end": "2022-10-19",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.0567,
+    "ema_scores": {
+      "126": 0.189
+    }
+  },
+  {
+    "step": 229,
+    "is_start": "2022-05-26",
+    "is_end": "2022-11-17",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.9329,
+    "ema_scores": {
+      "126": 3.1098
+    }
+  },
+  {
+    "step": 230,
+    "is_start": "2022-06-24",
+    "is_end": "2022-12-16",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.9713,
+    "ema_scores": {
+      "126": 3.2377
+    }
+  },
+  {
+    "step": 231,
+    "is_start": "2022-07-25",
+    "is_end": "2023-01-16",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.232,
+    "ema_scores": {
+      "126": 4.1066
+    }
+  },
+  {
+    "step": 232,
+    "is_start": "2022-08-23",
+    "is_end": "2023-02-14",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.1857,
+    "ema_scores": {
+      "126": 3.9522
+    }
+  },
+  {
+    "step": 233,
+    "is_start": "2022-09-21",
+    "is_end": "2023-03-15",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.4309,
+    "ema_scores": {
+      "126": 4.7696
+    }
+  },
+  {
+    "step": 234,
+    "is_start": "2022-10-20",
+    "is_end": "2023-04-13",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.2752,
+    "ema_scores": {
+      "126": 4.2507
+    }
+  },
+  {
+    "step": 235,
+    "is_start": "2022-11-18",
+    "is_end": "2023-05-12",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8468,
+    "ema_scores": {
+      "126": 6.1561
+    }
+  },
+  {
+    "step": 236,
+    "is_start": "2022-12-19",
+    "is_end": "2023-06-12",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1662,
+    "ema_scores": {
+      "126": 7.2208
+    }
+  },
+  {
+    "step": 237,
+    "is_start": "2023-01-17",
+    "is_end": "2023-07-11",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1803,
+    "ema_scores": {
+      "126": 7.2677
+    }
+  },
+  {
+    "step": 238,
+    "is_start": "2023-02-15",
+    "is_end": "2023-08-09",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1619,
+    "ema_scores": {
+      "126": 7.2063
+    }
+  },
+  {
+    "step": 239,
+    "is_start": "2023-03-16",
+    "is_end": "2023-09-07",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0987,
+    "ema_scores": {
+      "126": 6.9956
+    }
+  },
+  {
+    "step": 240,
+    "is_start": "2023-04-14",
+    "is_end": "2023-10-06",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1088,
+    "ema_scores": {
+      "126": 7.0293
+    }
+  },
+  {
+    "step": 241,
+    "is_start": "2023-05-15",
+    "is_end": "2023-11-06",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.7572,
+    "ema_scores": {
+      "126": 5.8574
+    }
+  },
+  {
+    "step": 242,
+    "is_start": "2023-06-13",
+    "is_end": "2023-12-05",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9775,
+    "ema_scores": {
+      "126": 6.5917
+    }
+  },
+  {
+    "step": 243,
+    "is_start": "2023-07-12",
+    "is_end": "2024-01-03",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.3816,
+    "ema_scores": {
+      "126": 7.9388
+    }
+  },
+  {
+    "step": 244,
+    "is_start": "2023-08-10",
+    "is_end": "2024-02-01",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.484,
+    "ema_scores": {
+      "126": 8.2799
+    }
+  },
+  {
+    "step": 245,
+    "is_start": "2023-09-08",
+    "is_end": "2024-03-01",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.7933,
+    "ema_scores": {
+      "126": 9.3111
+    }
+  },
+  {
+    "step": 246,
+    "is_start": "2023-10-09",
+    "is_end": "2024-04-01",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.2827,
+    "ema_scores": {
+      "126": 7.6091
+    }
+  },
+  {
+    "step": 247,
+    "is_start": "2023-11-07",
+    "is_end": "2024-04-30",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.5879,
+    "ema_scores": {
+      "126": 8.6264
+    }
+  },
+  {
+    "step": 248,
+    "is_start": "2023-12-06",
+    "is_end": "2024-05-29",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.2123,
+    "ema_scores": {
+      "126": 7.3744
+    }
+  },
+  {
+    "step": 249,
+    "is_start": "2024-01-04",
+    "is_end": "2024-06-27",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.2882,
+    "ema_scores": {
+      "126": 7.6275
+    }
+  },
+  {
+    "step": 250,
+    "is_start": "2024-02-02",
+    "is_end": "2024-07-26",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0357,
+    "ema_scores": {
+      "126": 6.7855
+    }
+  },
+  {
+    "step": 251,
+    "is_start": "2024-03-04",
+    "is_end": "2024-08-26",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1499,
+    "ema_scores": {
+      "126": 7.1664
+    }
+  },
+  {
+    "step": 252,
+    "is_start": "2024-04-02",
+    "is_end": "2024-09-24",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.4504,
+    "ema_scores": {
+      "126": 8.168
+    }
+  },
+  {
+    "step": 253,
+    "is_start": "2024-05-01",
+    "is_end": "2024-10-23",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.1744,
+    "ema_scores": {
+      "126": 7.2479
+    }
+  },
+  {
+    "step": 254,
+    "is_start": "2024-05-30",
+    "is_end": "2024-11-21",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6755,
+    "ema_scores": {
+      "126": 5.585
+    }
+  },
+  {
+    "step": 255,
+    "is_start": "2024-06-28",
+    "is_end": "2024-12-20",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9288,
+    "ema_scores": {
+      "126": 6.4292
+    }
+  },
+  {
+    "step": 256,
+    "is_start": "2024-07-29",
+    "is_end": "2025-01-20",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 2.0396,
+    "ema_scores": {
+      "126": 6.7987
+    }
+  },
+  {
+    "step": 257,
+    "is_start": "2024-08-27",
+    "is_end": "2025-02-18",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8722,
+    "ema_scores": {
+      "126": 6.2405
+    }
+  },
+  {
+    "step": 258,
+    "is_start": "2024-09-25",
+    "is_end": "2025-03-19",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.8873,
+    "ema_scores": {
+      "126": 6.2911
+    }
+  },
+  {
+    "step": 259,
+    "is_start": "2024-10-24",
+    "is_end": "2025-04-17",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.4541,
+    "ema_scores": {
+      "126": 4.8468
+    }
+  },
+  {
+    "step": 260,
+    "is_start": "2024-11-22",
+    "is_end": "2025-05-16",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6135,
+    "ema_scores": {
+      "126": 5.3782
+    }
+  },
+  {
+    "step": 261,
+    "is_start": "2024-12-23",
+    "is_end": "2025-06-16",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.5765,
+    "ema_scores": {
+      "126": 5.2548
+    }
+  },
+  {
+    "step": 262,
+    "is_start": "2025-01-21",
+    "is_end": "2025-07-15",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.3861,
+    "ema_scores": {
+      "126": 4.6204
+    }
+  },
+  {
+    "step": 263,
+    "is_start": "2025-02-19",
+    "is_end": "2025-08-13",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.0784,
+    "ema_scores": {
+      "126": 3.5946
+    }
+  },
+  {
+    "step": 264,
+    "is_start": "2025-03-20",
+    "is_end": "2025-09-11",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.0389,
+    "ema_scores": {
+      "126": 3.463
+    }
+  },
+  {
+    "step": 265,
+    "is_start": "2025-04-18",
+    "is_end": "2025-10-10",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.7346,
+    "ema_scores": {
+      "126": 2.4487
+    }
+  },
+  {
+    "step": 266,
+    "is_start": "2025-05-19",
+    "is_end": "2025-11-10",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 0.7918,
+    "ema_scores": {
+      "126": 2.6393
+    }
+  },
+  {
+    "step": 267,
+    "is_start": "2025-06-17",
+    "is_end": "2025-12-09",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.0258,
+    "ema_scores": {
+      "126": 3.4192
+    }
+  },
+  {
+    "step": 268,
+    "is_start": "2025-07-16",
+    "is_end": "2026-01-07",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.9518,
+    "ema_scores": {
+      "126": 6.5061
+    }
+  },
+  {
+    "step": 269,
+    "is_start": "2025-08-14",
+    "is_end": "2026-02-05",
+    "best_param": 126,
+    "best_is_sharpe": null,
+    "ema_boost": 1.6222,
+    "ema_scores": {
+      "126": 5.4072
+    }
+  }
+]
